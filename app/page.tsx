@@ -74,19 +74,21 @@ const flowSteps = [
 ];
 
 const currentFlow = [
-  "Coleta durante a visita",
-  "Conferencia dos campos",
-  "Soma das sentinelas",
-  "Registro ou planilha paralela",
-  "Priorizacao pela equipe",
+  "Acesso a pastas por distrito e USF",
+  "Abertura de formulario especifico da unidade",
+  "Selecao manual de equipe e microarea",
+  "Preenchimento de endereco e sentinelas",
+  "Consolidacao posterior em planilha",
+  "Leitura dos indicadores para planejar a prioridade",
 ];
 
 const eTetFlow = [
-  "Formulario guiado",
-  "Sentinelas padronizadas",
-  "Pontuacao automatizada",
-  "Risco exibido na hora",
-  "Relatorio para planejamento",
+  "Territorio organizado dentro do aplicativo",
+  "Domicilio e familia conectados ao mesmo fluxo",
+  "Equipe e microarea vinculadas ao registro",
+  "Sentinelas preenchidas em tela propria",
+  "Pontuacao e classificacao calculadas automaticamente",
+  "Resultado disponivel para decisao da equipe",
 ];
 
 const sentinelOptions = [
@@ -373,16 +375,18 @@ export default function Home() {
           <p className="eyebrow">Mudanca principal</p>
           <h2>Menos dispersao, mais decisao no territorio</h2>
           <p>
-            Os videos enviados mostram o fluxo atual como uma sequencia de
-            coleta, conferencia e registro. O e-TET concentra esse caminho em
-            etapas visuais, mantendo a avaliacao profissional no centro.
+            No processo atual, a estratificacao passa por arquivos separados,
+            formularios por unidade, selecao manual de equipe e microarea,
+            preenchimento das sentinelas e leitura posterior em planilha. O
+            e-TET concentra esse caminho em uma jornada unica, mantendo a
+            avaliacao profissional no centro.
           </p>
         </div>
 
         <div className="route-compare">
           <article className="route-column current">
             <span className="compare-badge">Hoje</span>
-            <h3>Fluxo observado na coleta atual</h3>
+            <h3>Fluxo atual da estratificacao</h3>
             <ol>
               {currentFlow.map((item) => (
                 <li key={item}>{item}</li>
