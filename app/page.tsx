@@ -121,6 +121,11 @@ export default function Home() {
             que organiza dados do territorio, calcula a Escala de Risco Familiar
             de Coelho-Savassi e ajuda a priorizar visitas com mais clareza.
           </p>
+          <div className="hero-metrics" aria-label="Resumo do valor do e-TET">
+            <span>Fluxo guiado</span>
+            <span>Calculo automatizado</span>
+            <span>Priorizacao territorial</span>
+          </div>
           <div className="hero-actions">
             <a className="button primary" href="#fluxo">
               Ver funcionamento
@@ -132,29 +137,57 @@ export default function Home() {
         </div>
 
         <div className="hero-panel" aria-label="Resumo visual do app">
-          <div className="status-card">
-            <span>Familia acompanhada</span>
-            <strong>R2</strong>
+          <div className="dashboard-card">
+            <div className="dashboard-top">
+              <span>Familia acompanhada</span>
+              <strong>R2</strong>
+            </div>
+            <div className="risk-bar" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
             <small>7 pontos - prioridade media</small>
           </div>
-          <div className="mini-flow">
-            <span>Cadastro</span>
-            <span>Sentinelas</span>
-            <span>Calculo</span>
-            <span>Relatorio</span>
+          <div className="app-preview">
+            <div className="preview-phone main-phone">
+              <div className="preview-header">
+                <span />
+                <strong>Sentinelas</strong>
+              </div>
+              <div className="preview-list">
+                <span />
+                <span />
+                <span />
+                <span />
+              </div>
+              <div className="preview-action">Gerar classificacao</div>
+            </div>
+            <div className="preview-phone side-phone">
+              <div className="preview-header">
+                <span />
+                <strong>Cadastro</strong>
+              </div>
+              <div className="preview-list compact-list">
+                <span />
+                <span />
+                <span />
+              </div>
+            </div>
           </div>
           <div className="signal-grid">
             <div>
               <strong>11</strong>
-              <span>sentinelas acompanhadas</span>
+              <span>sentinelas</span>
             </div>
             <div>
               <strong>4</strong>
-              <span>classes de risco</span>
+              <span>classes</span>
             </div>
             <div>
               <strong>1</strong>
-              <span>fluxo guiado</span>
+              <span>fluxo</span>
             </div>
           </div>
         </div>
@@ -173,6 +206,7 @@ export default function Home() {
 
         <div className="compare-grid">
           <article className="compare-column current">
+            <span className="compare-badge">Antes</span>
             <h3>Como costuma ser feito</h3>
             <ul>
               <li>Dados coletados em visitas e registros separados.</li>
@@ -183,6 +217,7 @@ export default function Home() {
           </article>
 
           <article className="compare-column proposed">
+            <span className="compare-badge">Com e-TET</span>
             <h3>Com o apoio do e-TET</h3>
             <ul>
               <li>Cadastro e risco conectados em um fluxo de trabalho.</li>
@@ -235,6 +270,10 @@ export default function Home() {
               <strong>{step.screenTitle}</strong>
             </div>
             <div className="phone-body">
+              <div className="phone-hero-line">
+                <span>{step.label}</span>
+                <strong>{String(activeStep + 1).padStart(2, "0")}</strong>
+              </div>
               {step.screenLines.map((line) => (
                 <div className="field-row" key={line}>
                   <span>{line}</span>
