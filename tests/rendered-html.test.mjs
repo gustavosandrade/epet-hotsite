@@ -31,10 +31,11 @@ test("server-renders the e-TET hotsite", async () => {
   const html = await response.text();
   assert.match(html, /<html lang="pt-BR">/i);
   assert.match(html, /<title>e-TET \| Estratificacao de risco familiar<\/title>/i);
-  assert.match(html, /e-TET: estratificacao de risco familiar mais simples para a APS/);
-  assert.match(html, /O que hoje fica manual passa a ser guiado/);
-  assert.match(html, /Do cadastro ao risco familiar/);
-  assert.match(html, /Calculadora demonstrativa de risco/);
+  assert.match(html, /Risco familiar calculado no ritmo real da visita/);
+  assert.match(html, /Menos dispersao, mais decisao no territorio/);
+  assert.match(html, /Do login ao risco familiar em uma jornada unica/);
+  assert.match(html, /Uma vitrine do prototipo, sem mockup generico/);
+  assert.match(html, /Teste a logica da estratificacao/);
   assert.match(html, /Abrir guia completo/);
   assert.doesNotMatch(html, /codex-preview|SkeletonPreview|react-loading-skeleton/);
 });
@@ -47,14 +48,18 @@ test("keeps the hotsite responsive styles and real content wired", async () => {
     readFile(new URL("../package.json", import.meta.url), "utf8"),
   ]);
 
+  assert.match(page, /const appScreens = \[/);
+  assert.match(page, /\/screens\/app-risk-form\.png/);
   assert.match(page, /const flowSteps = \[/);
   assert.match(page, /const sentinelOptions = \[/);
   assert.match(page, /role="tablist"/);
   assert.match(page, /type="checkbox"/);
+  assert.match(page, /Prints extraidos do Guia de Bolso E-TET/);
   assert.match(layout, /metadataBase: new URL\("https:\/\/e-tet-hotsite\.gustavosandrade\.chatgpt\.site"\)/);
   assert.match(css, /@media \(max-width: 1060px\)/);
   assert.match(css, /@media \(max-width: 760px\)/);
   assert.match(css, /@media \(max-width: 430px\)/);
+  assert.match(css, /screen-gallery/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
   assert.doesNotMatch(page, /_sites-preview|codex-preview/);
 });

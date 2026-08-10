@@ -1,53 +1,98 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 
-const flowSteps = [
+const appScreens = [
   {
-    label: "Login",
-    title: "Acesso do ACS",
-    description:
-      "O profissional entra no ambiente do app com suas credenciais e inicia o trabalho territorial com dados organizados por domicilio, familia e individuo.",
-    screenTitle: "Entrada",
-    screenLines: ["CPF", "Senha", "Entrar"],
-    highlight: "Acesso unico para seguir o fluxo de cadastro e visita.",
+    label: "Acesso",
+    title: "Login do ACS",
+    src: "/screens/app-login.png",
+    alt: "Print da tela de login do e-ACS no guia de bolso do e-TET",
+    text: "O profissional entra com CPF e senha para acessar o territorio eletronico.",
   },
   {
-    label: "Domicilio",
-    title: "Cadastro do domicilio",
-    description:
-      "O app conduz o preenchimento do endereco, tipo de localizacao, pavimento, comodos, moradores e condicoes de infraestrutura.",
-    screenTitle: "Domicilio",
-    screenLines: ["Endereco completo", "Comodos e moradores", "Agua, energia e saneamento"],
-    highlight: "Menos informacao dispersa e menos retrabalho na revisao.",
+    label: "Territorio",
+    title: "Domicilios cadastrados",
+    src: "/screens/app-households.png",
+    alt: "Print da lista de domicilios cadastrados no app",
+    text: "A lista organiza enderecos, moradores e situacao de sincronizacao.",
   },
   {
-    label: "Familia",
-    title: "Composicao familiar",
-    description:
-      "A familia e associada ao domicilio, com prontuario, renda, tempo de moradia e indicacao do responsavel pela unidade familiar.",
-    screenTitle: "Familia",
-    screenLines: ["Prontuario", "Membros", "Responsavel familiar"],
-    highlight: "A familia vira a unidade de analise para o risco.",
+    label: "Cadastro",
+    title: "Novo domicilio",
+    src: "/screens/app-household-form.png",
+    alt: "Print do formulario de novo domicilio no app",
+    text: "O preenchimento passa por endereco, moradia e infraestrutura.",
   },
   {
-    label: "Cidadaos",
-    title: "Cadastro dos membros",
-    description:
-      "Cada membro pode receber dados pessoais, sociais e de saude relevantes para compor as sentinelas de risco familiar.",
-    screenTitle: "Membro",
-    screenLines: ["Nascimento e cor", "Escolaridade e trabalho", "Condicoes de saude"],
-    highlight: "As informacoes entram uma vez e alimentam a estratificacao.",
+    label: "Sentinelas",
+    title: "Estratificacao",
+    src: "/screens/app-risk-form.png",
+    alt: "Print da tela de estratificacao de risco familiar",
+    text: "As sentinelas sao registradas em um formulario especifico para a familia.",
   },
   {
     label: "Risco",
-    title: "Calculo do e-TET",
-    description:
-      "Com a familia cadastrada, o e-TET registra as sentinelas, soma os pontos e classifica o risco familiar para apoiar a priorizacao das visitas.",
-    screenTitle: "Risco familiar",
-    screenLines: ["Sentinelas", "Pontuacao", "Classificacao R0 a R3"],
-    highlight: "O calculo deixa de depender de soma manual e planilhas soltas.",
+    title: "Campos de risco",
+    src: "/screens/app-risk-fields.png",
+    alt: "Print dos campos finais de sentinelas do e-TET",
+    text: "O app soma os fatores e apoia a classificacao do risco familiar.",
   },
+];
+
+const flowSteps = [
+  {
+    label: "Entrar",
+    title: "Acesso identificado",
+    description:
+      "O ACS acessa o e-ACS por CPF e senha para iniciar a rotina de trabalho no territorio.",
+    screenIndex: 0,
+  },
+  {
+    label: "Localizar",
+    title: "Domicilio e familia",
+    description:
+      "A equipe localiza o domicilio, verifica familias residentes e confere se ha registros pendentes.",
+    screenIndex: 1,
+  },
+  {
+    label: "Cadastrar",
+    title: "Dados estruturados",
+    description:
+      "Endereco, moradia, infraestrutura, responsavel familiar e membros sao preenchidos em etapas.",
+    screenIndex: 2,
+  },
+  {
+    label: "Estratificar",
+    title: "Sentinelas de risco",
+    description:
+      "O profissional informa os fatores de risco da familia em um formulario guiado.",
+    screenIndex: 3,
+  },
+  {
+    label: "Priorizar",
+    title: "Pontuacao e decisao",
+    description:
+      "O resultado orienta a priorizacao das visitas e a discussao pela equipe de APS.",
+    screenIndex: 4,
+  },
+];
+
+const currentFlow = [
+  "Coleta durante a visita",
+  "Conferencia dos campos",
+  "Soma das sentinelas",
+  "Registro ou planilha paralela",
+  "Priorizacao pela equipe",
+];
+
+const eTetFlow = [
+  "Formulario guiado",
+  "Sentinelas padronizadas",
+  "Pontuacao automatizada",
+  "Risco exibido na hora",
+  "Relatorio para planejamento",
 ];
 
 const sentinelOptions = [
@@ -55,6 +100,7 @@ const sentinelOptions = [
   { id: "disability", label: "Deficiencia fisica ou mental", points: 3 },
   { id: "sanitation", label: "Baixas condicoes de saneamento", points: 3 },
   { id: "malnutrition", label: "Desnutricao grave", points: 3 },
+  { id: "crowding", label: "Mais moradores que comodos", points: 3 },
   { id: "drug", label: "Drogadicao", points: 2 },
   { id: "unemployed", label: "Desemprego", points: 2 },
   { id: "illiteracy", label: "Analfabetismo", points: 1 },
@@ -65,7 +111,7 @@ const sentinelOptions = [
 ];
 
 function classifyRisk(score: number) {
-  if (score >= 9) return { level: "R3", label: "risco elevado", tone: "high" };
+  if (score >= 9) return { level: "R3", label: "risco maximo", tone: "high" };
   if (score >= 7) return { level: "R2", label: "risco medio", tone: "medium" };
   if (score >= 5) return { level: "R1", label: "risco menor", tone: "low" };
   return { level: "R0", label: "sem risco familiar registrado", tone: "base" };
@@ -73,6 +119,7 @@ function classifyRisk(score: number) {
 
 export default function Home() {
   const [activeStep, setActiveStep] = useState(0);
+  const [activeScreen, setActiveScreen] = useState(3);
   const [selectedSentinels, setSelectedSentinels] = useState<string[]>([
     "sanitation",
     "elderly",
@@ -86,8 +133,11 @@ export default function Home() {
         .reduce((total, option) => total + option.points, 0),
     [selectedSentinels],
   );
+
   const risk = classifyRisk(score);
   const step = flowSteps[activeStep];
+  const activeFlowScreen = appScreens[step.screenIndex];
+  const featuredScreen = appScreens[activeScreen];
 
   function toggleSentinel(id: string) {
     setSelectedSentinels((current) =>
@@ -95,6 +145,11 @@ export default function Home() {
         ? current.filter((item) => item !== id)
         : [...current, id],
     );
+  }
+
+  function selectStep(index: number) {
+    setActiveStep(index);
+    setActiveScreen(flowSteps[index].screenIndex);
   }
 
   return (
@@ -105,9 +160,10 @@ export default function Home() {
           <span>e-TET</span>
         </a>
         <nav>
-          <a href="#mudanca">O que muda</a>
-          <a href="#fluxo">Fluxo</a>
-          <a href="#risco">Risco familiar</a>
+          <a href="#mudanca">Antes/depois</a>
+          <a href="#produto">Produto</a>
+          <a href="#telas">Telas</a>
+          <a href="#risco">Risco</a>
           <a href="#guia">Guia</a>
         </nav>
       </header>
@@ -115,139 +171,113 @@ export default function Home() {
       <section className="hero" id="inicio">
         <div className="hero-copy">
           <p className="eyebrow">PET Saude Digital - UCDB | Grupo 8</p>
-          <h1>e-TET: estratificacao de risco familiar mais simples para a APS</h1>
+          <h1>Risco familiar calculado no ritmo real da visita</h1>
           <p className="lead">
-            Um prototipo de apoio ao trabalho dos Agentes Comunitarios de Saude
-            que organiza dados do territorio, calcula a Escala de Risco Familiar
-            de Coelho-Savassi e ajuda a priorizar visitas com mais clareza.
+            O e-TET transforma o cadastro territorial em uma experiencia guiada
+            para registrar sentinelas, somar a Escala de Risco Familiar de
+            Coelho-Savassi e apoiar a priorizacao das familias na APS.
           </p>
-          <div className="hero-metrics" aria-label="Resumo do valor do e-TET">
-            <span>Fluxo guiado</span>
-            <span>Calculo automatizado</span>
-            <span>Priorizacao territorial</span>
-          </div>
+
           <div className="hero-actions">
-            <a className="button primary" href="#fluxo">
-              Ver funcionamento
+            <a className="button primary" href="#produto">
+              Explorar o funcionamento
             </a>
-            <a className="button secondary" href="#mudanca">
-              Comparar com o fluxo atual
+            <a className="button secondary" href="#telas">
+              Ver telas do aplicativo
             </a>
+          </div>
+
+          <div className="hero-metrics" aria-label="Resumo do e-TET">
+            <span>Cadastro territorial</span>
+            <span>Sentinelas padronizadas</span>
+            <span>Classificacao R0 a R3</span>
           </div>
         </div>
 
-        <div className="hero-panel" aria-label="Resumo visual do app">
-          <div className="dashboard-card">
-            <div className="dashboard-top">
-              <span>Familia acompanhada</span>
-              <strong>R2</strong>
-            </div>
-            <div className="risk-bar" aria-hidden="true">
-              <span />
-              <span />
-              <span />
-              <span />
-            </div>
-            <small>7 pontos - prioridade media</small>
+        <div className="hero-stage" aria-label="Telas reais do aplicativo e-TET">
+          <div className="screen-stack">
+            <Image
+              className="screen-shot shot-back"
+              src="/screens/app-households.png"
+              alt="Lista de domicilios no e-TET"
+              width={325}
+              height={670}
+              sizes="(max-width: 760px) 54vw, 260px"
+              unoptimized
+            />
+            <Image
+              className="screen-shot shot-front"
+              src="/screens/app-risk-form.png"
+              alt="Formulario de estratificacao de risco familiar no e-TET"
+              priority
+              width={325}
+              height={700}
+              sizes="(max-width: 760px) 68vw, 320px"
+              unoptimized
+            />
           </div>
-          <div className="app-preview">
-            <div className="preview-phone main-phone">
-              <div className="preview-header">
-                <span />
-                <strong>Sentinelas</strong>
-              </div>
-              <div className="preview-list">
-                <span />
-                <span />
-                <span />
-                <span />
-              </div>
-              <div className="preview-action">Gerar classificacao</div>
-            </div>
-            <div className="preview-phone side-phone">
-              <div className="preview-header">
-                <span />
-                <strong>Cadastro</strong>
-              </div>
-              <div className="preview-list compact-list">
-                <span />
-                <span />
-                <span />
-              </div>
-            </div>
+          <div className={`risk-chip ${risk.tone}`}>
+            <span>Simulacao ativa</span>
+            <strong>{risk.level}</strong>
+            <small>{score} pontos</small>
           </div>
-          <div className="signal-grid">
-            <div>
-              <strong>11</strong>
-              <span>sentinelas</span>
-            </div>
-            <div>
-              <strong>4</strong>
-              <span>classes</span>
-            </div>
-            <div>
-              <strong>1</strong>
-              <span>fluxo</span>
-            </div>
-          </div>
+          <p className="source-note">Prints extraidos do Guia de Bolso E-TET.</p>
         </div>
       </section>
 
       <section className="section comparison" id="mudanca">
         <div className="section-heading">
           <p className="eyebrow">Mudanca principal</p>
-          <h2>O que hoje fica manual passa a ser guiado</h2>
+          <h2>Menos dispersao, mais decisao no territorio</h2>
           <p>
-            O e-TET nao substitui a avaliacao profissional nem os sistemas
-            oficiais. Ele organiza o caminho entre cadastro, sentinelas,
-            pontuacao e classificacao para reduzir perdas de informacao.
+            Os videos enviados mostram o fluxo atual como uma sequencia de
+            coleta, conferencia e registro. O e-TET concentra esse caminho em
+            etapas visuais, mantendo a avaliacao profissional no centro.
           </p>
         </div>
 
-        <div className="compare-grid">
-          <article className="compare-column current">
-            <span className="compare-badge">Antes</span>
-            <h3>Como costuma ser feito</h3>
-            <ul>
-              <li>Dados coletados em visitas e registros separados.</li>
-              <li>Sentinelas interpretadas e somadas manualmente.</li>
-              <li>Planilhas ou anotacoes paralelas para organizar prioridades.</li>
-              <li>Maior risco de duplicidade, esquecimento ou transcricao.</li>
-            </ul>
+        <div className="route-compare">
+          <article className="route-column current">
+            <span className="compare-badge">Hoje</span>
+            <h3>Fluxo observado na coleta atual</h3>
+            <ol>
+              {currentFlow.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ol>
           </article>
 
-          <article className="compare-column proposed">
+          <article className="route-column proposed">
             <span className="compare-badge">Com e-TET</span>
-            <h3>Com o apoio do e-TET</h3>
-            <ul>
-              <li>Cadastro e risco conectados em um fluxo de trabalho.</li>
-              <li>Pontuacao calculada automaticamente a partir das sentinelas.</li>
-              <li>Classificacao R0, R1, R2 ou R3 exibida de forma imediata.</li>
-              <li>Relatorio para apoiar discussao da equipe e planejamento.</li>
-            </ul>
+            <h3>Fluxo proposto pelo prototipo</h3>
+            <ol>
+              {eTetFlow.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ol>
           </article>
         </div>
       </section>
 
-      <section className="section flow-section" id="fluxo">
+      <section className="section product" id="produto">
         <div className="section-heading compact">
           <p className="eyebrow">Funcionamento</p>
-          <h2>Do cadastro ao risco familiar</h2>
+          <h2>Do login ao risco familiar em uma jornada unica</h2>
           <p>
-            Clique nas etapas para visualizar como o app conduz o profissional
-            ate o calculo da estratificacao.
+            Clique nas etapas para alternar entre telas reais do guia e ver o
+            que muda no trabalho do ACS.
           </p>
         </div>
 
-        <div className="flow-layout">
-          <div className="step-list" role="tablist" aria-label="Etapas do e-TET">
+        <div className="product-layout">
+          <div className="step-rail" role="tablist" aria-label="Etapas do e-TET">
             {flowSteps.map((item, index) => (
               <button
-                aria-controls="flow-screen"
+                aria-controls="product-screen"
                 aria-selected={activeStep === index}
                 className={activeStep === index ? "step active" : "step"}
                 key={item.label}
-                onClick={() => setActiveStep(index)}
+                onClick={() => selectStep(index)}
                 role="tab"
                 type="button"
               >
@@ -257,46 +287,84 @@ export default function Home() {
             ))}
           </div>
 
-          <article className="flow-detail">
+          <article className="product-copy">
             <p className="eyebrow">{step.label}</p>
             <h3>{step.title}</h3>
             <p>{step.description}</p>
-            <strong>{step.highlight}</strong>
+            <strong>
+              Tela relacionada: {activeFlowScreen.title}. O objetivo e reduzir
+              retrabalho sem afirmar integracao automatica com sistemas oficiais.
+            </strong>
           </article>
 
-          <div className="phone" id="flow-screen" role="tabpanel">
-            <div className="phone-top">
-              <span />
-              <strong>{step.screenTitle}</strong>
-            </div>
-            <div className="phone-body">
-              <div className="phone-hero-line">
-                <span>{step.label}</span>
-                <strong>{String(activeStep + 1).padStart(2, "0")}</strong>
-              </div>
-              {step.screenLines.map((line) => (
-                <div className="field-row" key={line}>
-                  <span>{line}</span>
-                  <small />
-                </div>
-              ))}
-              <div className="phone-result">
-                <span>Proxima acao</span>
-                <strong>{activeStep === 4 ? "Gerar classificacao" : "Salvar e continuar"}</strong>
-              </div>
-            </div>
+          <figure className="device-frame" id="product-screen" role="tabpanel">
+            <Image
+              src={activeFlowScreen.src}
+              alt={activeFlowScreen.alt}
+              width={330}
+              height={700}
+              sizes="(max-width: 760px) 88vw, 360px"
+              unoptimized
+            />
+            <figcaption>{activeFlowScreen.text}</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section className="section screens" id="telas">
+        <div className="section-heading">
+          <p className="eyebrow">Telas reais</p>
+          <h2>Uma vitrine do prototipo, sem mockup generico</h2>
+          <p>
+            As imagens abaixo foram retiradas do guia de bolso e ajudam a
+            apresentar o aplicativo em reunioes, oficinas e validacoes com as
+            USF participantes.
+          </p>
+        </div>
+
+        <div className="screen-gallery">
+          <div className="screen-picker" role="tablist" aria-label="Telas do aplicativo">
+            {appScreens.map((screen, index) => (
+              <button
+                aria-controls="featured-screen"
+                aria-selected={activeScreen === index}
+                className={activeScreen === index ? "picker active" : "picker"}
+                key={screen.label}
+                onClick={() => setActiveScreen(index)}
+                role="tab"
+                type="button"
+              >
+                <span>{screen.label}</span>
+                <strong>{screen.title}</strong>
+              </button>
+            ))}
           </div>
+
+          <figure className="featured-screen" id="featured-screen" role="tabpanel">
+            <Image
+              src={featuredScreen.src}
+              alt={featuredScreen.alt}
+              width={330}
+              height={720}
+              sizes="(max-width: 1060px) 88vw, 520px"
+              unoptimized
+            />
+            <figcaption>
+              <span>{featuredScreen.label}</span>
+              {featuredScreen.text}
+            </figcaption>
+          </figure>
         </div>
       </section>
 
       <section className="section risk-section" id="risco">
         <div className="section-heading">
           <p className="eyebrow">Interativo</p>
-          <h2>Calculadora demonstrativa de risco</h2>
+          <h2>Teste a logica da estratificacao</h2>
           <p>
-            Esta simulacao mostra a logica de soma das sentinelas. A aplicacao
-            real deve registrar a versao da escala, os dados usados e a revisao
-            da equipe.
+            Esta simulacao reproduz a soma das sentinelas como recurso de
+            demonstracao. A classificacao final deve ser revisada pela equipe e
+            registrada conforme autorizacao institucional.
           </p>
         </div>
 
@@ -321,39 +389,38 @@ export default function Home() {
             <h3>{risk.level}</h3>
             <p>{risk.label}</p>
             <small>
-              A classificacao apoia a priorizacao, mas nao substitui a leitura
-              clinica, social e territorial da equipe.
+              A ferramenta apoia a priorizacao; a decisao final continua sendo
+              clinica, social e territorial.
             </small>
           </aside>
         </div>
       </section>
 
       <section className="section assurance">
-        <div>
+        <div className="section-heading compact">
           <p className="eyebrow">Uso responsavel</p>
-          <h2>Integra com cuidado, nao por promessa</h2>
+          <h2>Prototipo claro, limites explicitos</h2>
         </div>
         <div className="assurance-grid">
           <article>
-            <h3>Hoje</h3>
+            <h3>O que o app oferece</h3>
             <p>
-              O prototipo pode ser testado com dados ficticios, bases
-              autorizadas ou formulacoes manuais, sem acessar automaticamente
-              sistemas oficiais.
+              Cadastro organizado, formulario de sentinelas, calculo de escore
+              e classificacao para apoiar a agenda da equipe.
             </p>
           </article>
           <article>
-            <h3>Na pesquisa</h3>
+            <h3>O que ainda depende</h3>
             <p>
-              A avaliacao observa confiabilidade do calculo, facilidade de uso,
-              tempo, dificuldades e utilidade percebida pelos profissionais.
+              Integracao oficial, escrita no PEC e sincronizacao institucional
+              exigem autorizacao, homologacao e governanca de dados.
             </p>
           </article>
           <article>
-            <h3>Para uso institucional</h3>
+            <h3>Como apresentar</h3>
             <p>
-              Qualquer envio ao e-SUS PEC ou integracao com e-SUS APS depende
-              de autorizacao, seguranca, homologacao e governanca de dados.
+              Use o hotsite para explicar a mudanca no fluxo, mostrar telas e
+              abrir o guia de bolso durante as discussoes com o grupo.
             </p>
           </article>
         </div>
