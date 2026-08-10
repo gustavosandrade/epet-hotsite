@@ -1,43 +1,37 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Image from "next/image";
 
 const appScreens = [
   {
     label: "Acesso",
     title: "Login do ACS",
-    src: "/screens/app-login.png",
-    alt: "Print da tela de login do e-ACS no guia de bolso do e-TET",
-    text: "O profissional entra com CPF e senha para acessar o territorio eletronico.",
+    kind: "login",
+    text: "Entrada por CPF e senha, seguindo a identidade do e-ACS Territorio Eletronico.",
   },
   {
     label: "Territorio",
-    title: "Domicilios cadastrados",
-    src: "/screens/app-households.png",
-    alt: "Print da lista de domicilios cadastrados no app",
-    text: "A lista organiza enderecos, moradores e situacao de sincronizacao.",
+    title: "Domicilios",
+    kind: "households",
+    text: "Lista territorial com busca, domicilios, moradores e status de sincronizacao.",
   },
   {
     label: "Cadastro",
     title: "Novo domicilio",
-    src: "/screens/app-household-form.png",
-    alt: "Print do formulario de novo domicilio no app",
-    text: "O preenchimento passa por endereco, moradia e infraestrutura.",
+    kind: "householdForm",
+    text: "Formulario em etapas para endereco, moradia e infraestrutura.",
   },
   {
     label: "Sentinelas",
     title: "Estratificacao",
-    src: "/screens/app-risk-form.png",
-    alt: "Print da tela de estratificacao de risco familiar",
-    text: "As sentinelas sao registradas em um formulario especifico para a familia.",
+    kind: "riskForm",
+    text: "Registro guiado das sentinelas de risco familiar.",
   },
   {
     label: "Risco",
-    title: "Campos de risco",
-    src: "/screens/app-risk-fields.png",
-    alt: "Print dos campos finais de sentinelas do e-TET",
-    text: "O app soma os fatores e apoia a classificacao do risco familiar.",
+    title: "Resultado",
+    kind: "riskResult",
+    text: "Pontuacao consolidada para apoiar a priorizacao da equipe.",
   },
 ];
 
@@ -117,6 +111,175 @@ function classifyRisk(score: number) {
   return { level: "R0", label: "sem risco familiar registrado", tone: "base" };
 }
 
+function PhoneScreen({ kind }: { kind: string }) {
+  if (kind === "login") {
+    return (
+      <div className="app-view login-view">
+        <div className="login-cover">
+          <div className="app-icon">e</div>
+          <strong>e-ACS</strong>
+          <span>Territorio Eletronico</span>
+        </div>
+        <div className="form-sheet">
+          <div className="visual-label">
+            CPF
+            <span className="input-line">000.000.000-00</span>
+          </div>
+          <div className="visual-label">
+            Senha
+            <span className="input-line">Digite sua senha</span>
+          </div>
+          <button type="button">Entrar</button>
+          <small>Versao 1.0.0</small>
+        </div>
+      </div>
+    );
+  }
+
+  if (kind === "households") {
+    return (
+      <div className="app-view">
+        <div className="app-bar">
+          <span className="hamburger" />
+          <strong>Domicilios</strong>
+        </div>
+        <div className="app-content">
+          <p className="muted-line">3 domicilios cadastrados</p>
+          <div className="search-pill">Buscar por endereco ou bairro...</div>
+          {[
+            ["Rua da Esperanca, 100", "Jardim Primavera", "5 moradores"],
+            ["Rua da Beira Rio, S/N", "Periferia Norte", "6 moradores"],
+            ["Avenida das Nacoes, 1500", "Centro Historico", "4 moradores"],
+          ].map(([street, district, residents]) => (
+            <article className="home-card" key={street}>
+              <span className="home-dot">H</span>
+              <div>
+                <strong>{street}</strong>
+                <small>{district}</small>
+                <div className="chips">
+                  <span>Casa</span>
+                  <span>{residents}</span>
+                  <span>Sincronizado</span>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div className="bottom-nav">
+          <span className="active">Domicilios</span>
+          <span>Familias</span>
+          <span>Pessoas</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (kind === "householdForm") {
+    return (
+      <div className="app-view">
+        <div className="app-bar">
+          <span className="back-mark" />
+          <strong>Novo Domicilio</strong>
+        </div>
+        <div className="progress-line">
+          <span />
+        </div>
+        <div className="app-content form-content">
+          <h4>Endereco</h4>
+          {["Tipo de imovel", "Microarea", "Nome do logradouro", "CEP", "Bairro"].map(
+            (field) => (
+              <label className="field-card" key={field}>
+                <span>{field}</span>
+                <strong>{field === "Microarea" ? "05" : "Preenchido"}</strong>
+              </label>
+            ),
+          )}
+          <div className="action-row">
+            <span>Cancelar</span>
+            <strong>Proxima etapa</strong>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (kind === "riskForm") {
+    return (
+      <div className="app-view">
+        <div className="app-bar">
+          <span className="shield-mark" />
+          <strong>Estratificacao</strong>
+        </div>
+        <div className="app-content form-content">
+          <div className="info-box">
+            <strong>Automacao e-TET</strong>
+            <span>Calculo automatico da estratificacao de risco familiar.</span>
+          </div>
+          <h4>Sentinelas da familia</h4>
+          {["Acamados", "Def. fisica", "Def. mental", "Desnutricao"].map(
+            (field, index) => (
+              <label className="field-card risk-field" key={field}>
+                <span>{field}</span>
+                <strong>{index === 1 ? "1" : "0"}</strong>
+              </label>
+            ),
+          )}
+        </div>
+        <div className="save-bar">
+          <span>Cancelar</span>
+          <strong>Salvar</strong>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="app-view">
+      <div className="app-bar">
+        <span className="shield-mark" />
+        <strong>Resultado</strong>
+      </div>
+      <div className="app-content result-content">
+        <div className="score-card">
+          <span>Pontuacao familiar</span>
+          <strong>7</strong>
+          <em>R2 - risco medio</em>
+        </div>
+        <div className="risk-scale">
+          <span />
+          <span />
+          <span className="active" />
+          <span />
+        </div>
+        <article className="priority-card">
+          <strong>Priorizar acompanhamento</strong>
+          <p>Resultado disponivel para discussao da equipe e planejamento das visitas.</p>
+        </article>
+      </div>
+    </div>
+  );
+}
+
+function PhoneMockup({
+  screen,
+  className = "",
+}: {
+  screen: (typeof appScreens)[number];
+  className?: string;
+}) {
+  return (
+    <figure className={`phone-device ${className}`}>
+      <div className="phone-side left" />
+      <div className="phone-side right" />
+      <div className="phone-glass">
+        <div className="phone-notch" />
+        <PhoneScreen kind={screen.kind} />
+      </div>
+      <figcaption>{screen.text}</figcaption>
+    </figure>
+  );
+}
+
 export default function Home() {
   const [activeStep, setActiveStep] = useState(0);
   const [activeScreen, setActiveScreen] = useState(3);
@@ -194,34 +357,14 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="hero-stage" aria-label="Telas reais do aplicativo e-TET">
-          <div className="screen-stack">
-            <Image
-              className="screen-shot shot-back"
-              src="/screens/app-households.png"
-              alt="Lista de domicilios no e-TET"
-              width={325}
-              height={670}
-              sizes="(max-width: 760px) 54vw, 260px"
-              unoptimized
-            />
-            <Image
-              className="screen-shot shot-front"
-              src="/screens/app-risk-form.png"
-              alt="Formulario de estratificacao de risco familiar no e-TET"
-              priority
-              width={325}
-              height={700}
-              sizes="(max-width: 760px) 68vw, 320px"
-              unoptimized
-            />
-          </div>
+        <div className="hero-stage" aria-label="Telas do aplicativo e-TET">
+          <PhoneMockup screen={appScreens[1]} className="hero-phone back-phone" />
+          <PhoneMockup screen={appScreens[3]} className="hero-phone front-phone" />
           <div className={`risk-chip ${risk.tone}`}>
             <span>Simulacao ativa</span>
             <strong>{risk.level}</strong>
             <small>{score} pontos</small>
           </div>
-          <p className="source-note">Prints extraidos do Guia de Bolso E-TET.</p>
         </div>
       </section>
 
@@ -264,8 +407,8 @@ export default function Home() {
           <p className="eyebrow">Funcionamento</p>
           <h2>Do login ao risco familiar em uma jornada unica</h2>
           <p>
-            Clique nas etapas para alternar entre telas reais do guia e ver o
-            que muda no trabalho do ACS.
+            Clique nas etapas para alternar entre telas recriadas com base no
+            front-end do e-TET e no guia de bolso.
           </p>
         </div>
 
@@ -292,33 +435,23 @@ export default function Home() {
             <h3>{step.title}</h3>
             <p>{step.description}</p>
             <strong>
-              Tela relacionada: {activeFlowScreen.title}. O objetivo e reduzir
+              Tela relacionada: {activeFlowScreen.title}. A proposta e reduzir
               retrabalho sem afirmar integracao automatica com sistemas oficiais.
             </strong>
           </article>
 
-          <figure className="device-frame" id="product-screen" role="tabpanel">
-            <Image
-              src={activeFlowScreen.src}
-              alt={activeFlowScreen.alt}
-              width={330}
-              height={700}
-              sizes="(max-width: 760px) 88vw, 360px"
-              unoptimized
-            />
-            <figcaption>{activeFlowScreen.text}</figcaption>
-          </figure>
+          <PhoneMockup screen={activeFlowScreen} className="detail-phone" />
         </div>
       </section>
 
       <section className="section screens" id="telas">
         <div className="section-heading">
-          <p className="eyebrow">Telas reais</p>
-          <h2>Uma vitrine do prototipo, sem mockup generico</h2>
+          <p className="eyebrow">Telas do produto</p>
+          <h2>Interface limpa, parecida com aplicativo de verdade</h2>
           <p>
-            As imagens abaixo foram retiradas do guia de bolso e ajudam a
-            apresentar o aplicativo em reunioes, oficinas e validacoes com as
-            USF participantes.
+            Em vez de usar recortes crus do manual, esta area apresenta telas
+            recriadas a partir do app e-TET para explicar o produto com mais
+            clareza em reunioes e oficinas.
           </p>
         </div>
 
@@ -340,20 +473,9 @@ export default function Home() {
             ))}
           </div>
 
-          <figure className="featured-screen" id="featured-screen" role="tabpanel">
-            <Image
-              src={featuredScreen.src}
-              alt={featuredScreen.alt}
-              width={330}
-              height={720}
-              sizes="(max-width: 1060px) 88vw, 520px"
-              unoptimized
-            />
-            <figcaption>
-              <span>{featuredScreen.label}</span>
-              {featuredScreen.text}
-            </figcaption>
-          </figure>
+          <div id="featured-screen" role="tabpanel">
+            <PhoneMockup screen={featuredScreen} className="showcase-phone" />
+          </div>
         </div>
       </section>
 

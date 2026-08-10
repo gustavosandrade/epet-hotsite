@@ -34,7 +34,7 @@ test("server-renders the e-TET hotsite", async () => {
   assert.match(html, /Risco familiar calculado no ritmo real da visita/);
   assert.match(html, /Menos dispersao, mais decisao no territorio/);
   assert.match(html, /Do login ao risco familiar em uma jornada unica/);
-  assert.match(html, /Uma vitrine do prototipo, sem mockup generico/);
+  assert.match(html, /Interface limpa, parecida com aplicativo de verdade/);
   assert.match(html, /Teste a logica da estratificacao/);
   assert.match(html, /Abrir guia completo/);
   assert.doesNotMatch(html, /codex-preview|SkeletonPreview|react-loading-skeleton/);
@@ -49,16 +49,19 @@ test("keeps the hotsite responsive styles and real content wired", async () => {
   ]);
 
   assert.match(page, /const appScreens = \[/);
-  assert.match(page, /\/screens\/app-risk-form\.png/);
   assert.match(page, /const flowSteps = \[/);
   assert.match(page, /const sentinelOptions = \[/);
+  assert.match(page, /function PhoneMockup/);
+  assert.match(page, /function PhoneScreen/);
   assert.match(page, /role="tablist"/);
   assert.match(page, /type="checkbox"/);
-  assert.match(page, /Prints extraidos do Guia de Bolso E-TET/);
+  assert.match(page, /telas recriadas com base no/);
   assert.match(layout, /metadataBase: new URL\("https:\/\/e-tet-hotsite\.gustavosandrade\.chatgpt\.site"\)/);
   assert.match(css, /@media \(max-width: 1060px\)/);
   assert.match(css, /@media \(max-width: 760px\)/);
   assert.match(css, /@media \(max-width: 430px\)/);
+  assert.match(css, /phone-glass/);
+  assert.match(css, /phone-notch/);
   assert.match(css, /screen-gallery/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
   assert.doesNotMatch(page, /_sites-preview|codex-preview/);
