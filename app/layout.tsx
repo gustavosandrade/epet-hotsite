@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: "e-TET | Estratificacao de risco familiar",
   description:
     "Hotsite interativo sobre o funcionamento do e-TET, prototipo de apoio a estratificacao de risco familiar na Atencao Primaria a Saude.",
-  metadataBase: new URL("https://e-tet-hotsite.openai.site"),
+  metadataBase: new URL("https://e-tet-hotsite.gustavosandrade.chatgpt.site"),
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
