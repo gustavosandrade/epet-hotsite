@@ -344,6 +344,7 @@ export default function Home() {
           <span>e-TET</span>
         </a>
         <nav>
+          <a href="#identidade">Identidade</a>
           <a href="#mudanca">Antes/depois</a>
           <a href="#produto">Produto</a>
           <a href="#telas">Telas</a>
@@ -402,6 +403,48 @@ export default function Home() {
             <span>Simulacao ativa</span>
             <strong>{risk.level}</strong>
             <small>{score} pontos</small>
+          </div>
+        </div>
+      </section>
+
+      <section className="section identity-section" id="identidade">
+        <div className="identity-layout">
+          <div className="identity-copy">
+            <p className="eyebrow">Identidade do grupo</p>
+            <h2>O e-TET tambem virou marca de campo</h2>
+            <p>
+              A identidade visual do grupo aproxima o prototipo da rotina das
+              equipes e reforca a parceria entre PET-Saude Digital, UCDB e a
+              area da saude do municipio.
+            </p>
+            <div className="identity-tags" aria-label="Elementos de identidade">
+              <span>Logo e-PET</span>
+              <span>Camiseta do Grupo 8</span>
+              <span>UCDB e SESAU</span>
+            </div>
+          </div>
+
+          <div className="identity-gallery">
+            <figure className="identity-card logo-showcase">
+              <Image
+                alt="Logo do e-PET com cruz verde, casa, sigla e-TET e maos"
+                height={560}
+                src="/identity/e-pet-logo.png"
+                unoptimized
+                width={720}
+              />
+              <figcaption>Logo aplicada ao projeto</figcaption>
+            </figure>
+            <figure className="identity-card shirt-showcase">
+              <Image
+                alt="Mockup da camiseta do Grupo 8 com logo e-PET, UCDB e SESAU"
+                height={720}
+                src="/identity/camiseta-grupo.png"
+                unoptimized
+                width={1120}
+              />
+              <figcaption>Camiseta com marcas institucionais</figcaption>
+            </figure>
           </div>
         </div>
       </section>

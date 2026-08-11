@@ -332,6 +332,93 @@ h3 {
   min-height: 620px;
 }
 
+.identity-section {
+  background:
+    linear-gradient(135deg, rgba(216, 249, 221, 0.82), rgba(255, 255, 255, 0.92) 48%, rgba(239, 75, 42, 0.08)),
+    #f5fbf4;
+  border-top: 1px solid var(--line);
+}
+
+.identity-layout {
+  align-items: center;
+  display: grid;
+  gap: clamp(24px, 5vw, 58px);
+  grid-template-columns: minmax(260px, 0.82fr) minmax(0, 1.18fr);
+}
+
+.identity-copy {
+  display: grid;
+  gap: 18px;
+}
+
+.identity-copy p {
+  color: #4f615c;
+  font-size: clamp(1rem, 1.8vw, 1.18rem);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.identity-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.identity-tags span {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(7, 128, 101, 0.16);
+  border-radius: 8px;
+  color: var(--teal-deep);
+  font-size: 0.82rem;
+  font-weight: 900;
+  padding: 9px 11px;
+}
+
+.identity-gallery {
+  align-items: stretch;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: minmax(180px, 0.72fr) minmax(260px, 1.28fr);
+}
+
+.identity-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(7, 128, 101, 0.16);
+  border-radius: 8px;
+  box-shadow: 0 18px 48px rgba(16, 28, 25, 0.1);
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  overflow: hidden;
+  padding: 12px;
+}
+
+.identity-card img {
+  border-radius: 6px;
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.logo-showcase img {
+  aspect-ratio: 1 / 1.14;
+  background: #eaffea;
+  object-fit: contain;
+  padding: 14px;
+}
+
+.shirt-showcase img {
+  aspect-ratio: 1.58 / 1;
+}
+
+.identity-card figcaption {
+  color: #315047;
+  font-size: 0.82rem;
+  font-weight: 900;
+  line-height: 1.3;
+}
+
 .phone-device {
   display: grid;
   gap: 12px;
@@ -1357,6 +1444,7 @@ h3 {
 
 @media (max-width: 1060px) {
   .hero,
+  .identity-layout,
   .product-layout,
   .screen-gallery,
   .risk-layout {
@@ -1381,6 +1469,10 @@ h3 {
 
   .product-layout {
     align-items: start;
+  }
+
+  .identity-gallery {
+    grid-template-columns: minmax(170px, 0.58fr) minmax(260px, 1fr);
   }
 
   .step-rail,
@@ -1446,6 +1538,7 @@ h3 {
 
   .route-compare,
   .logo-row,
+  .identity-gallery,
   .assurance-grid,
   .sentinel-grid {
     grid-template-columns: 1fr;
