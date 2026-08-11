@@ -433,17 +433,14 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="identity-gallery single-identity">
-            <figure className="identity-card logo-showcase">
-              <Image
-                alt="Logo do e-PET com cruz verde, casa, sigla e-TET e maos"
-                height={560}
-                src="/identity/e-pet-logo.png"
-                unoptimized
-                width={720}
-              />
-              <figcaption>Logo aplicada ao projeto</figcaption>
-            </figure>
+          <div className="identity-logo">
+            <Image
+              alt="Logo do e-PET"
+              height={720}
+              src="/identity/e-pet-logo.png"
+              unoptimized
+              width={720}
+            />
           </div>
         </div>
       </section>
