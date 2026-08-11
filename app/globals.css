@@ -323,8 +323,8 @@ h3 {
 }
 
 .logo-card.sus-logo img {
-  max-height: 58px;
-  width: 96%;
+  max-height: 90px;
+  width: 84%;
 }
 
 .logo-card.ucdb-logo img,
@@ -1418,6 +1418,7 @@ h3 {
 }
 
 .footer-logos img.sus-logo {
+  height: 72px;
   width: 190px;
 }
 

@@ -18,7 +18,7 @@ const brandLogos = [
   },
   {
     name: "SUS",
-    src: "/brand/sus.png",
+    src: "/brand/sus-stack.svg",
     alt: "Logo do Sistema Unico de Saude",
     className: "sus-logo",
   },
