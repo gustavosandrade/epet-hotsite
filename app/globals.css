@@ -284,7 +284,7 @@ h3 {
 .logo-row {
   align-items: center;
   display: grid;
-  gap: 10px;
+  gap: 12px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
@@ -295,8 +295,8 @@ h3 {
   border-radius: 8px;
   display: flex;
   justify-content: center;
-  min-height: 82px;
-  padding: 10px 12px;
+  min-height: 104px;
+  padding: 14px 16px;
   position: relative;
 }
 
@@ -312,7 +312,7 @@ h3 {
 
 .logo-card img {
   height: auto;
-  max-height: 62px;
+  max-height: 78px;
   object-fit: contain;
   width: 100%;
 }
@@ -381,6 +381,12 @@ h3 {
   grid-template-columns: minmax(180px, 0.72fr) minmax(260px, 1.28fr);
 }
 
+.single-identity {
+  justify-self: center;
+  max-width: 430px;
+  width: 100%;
+}
+
 .identity-card {
   background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(7, 128, 101, 0.16);
@@ -402,14 +408,10 @@ h3 {
 }
 
 .logo-showcase img {
-  aspect-ratio: 1 / 1.14;
+  aspect-ratio: 1 / 1;
   background: #eaffea;
   object-fit: contain;
-  padding: 14px;
-}
-
-.shirt-showcase img {
-  aspect-ratio: 1.58 / 1;
+  padding: 20px;
 }
 
 .identity-card figcaption {
@@ -1419,18 +1421,18 @@ h3 {
   border-radius: 8px;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
   justify-content: center;
-  padding: 10px;
+  padding: 14px;
 }
 
 .footer-logos img {
   background: white;
   border-radius: 6px;
-  height: 46px;
+  height: 60px;
   object-fit: contain;
-  padding: 4px;
-  width: 118px;
+  padding: 6px;
+  width: 150px;
 }
 
 @media (prefers-reduced-motion: reduce) {

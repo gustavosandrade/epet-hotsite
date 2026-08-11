@@ -34,14 +34,15 @@ test("server-renders the e-TET hotsite", async () => {
   assert.match(html, /Risco familiar calculado no ritmo real da visita/);
   assert.match(html, /O e-TET tambem virou marca de campo/);
   assert.match(html, /\/identity\/e-pet-logo\.png/);
-  assert.match(html, /\/identity\/camiseta-grupo\.png/);
+  assert.match(html, /\/brand\/sus\.png/);
+  assert.doesNotMatch(html, /\/identity\/camiseta-grupo\.png/);
   assert.match(html, /Menos dispersao, mais decisao no territorio/);
   assert.match(html, /Do login ao risco familiar em uma jornada unica/);
   assert.match(html, /Interface limpa, parecida com aplicativo de verdade/);
   assert.match(html, /Instituicoes parceiras/);
   assert.match(html, /\/brand\/pet-saude\.png/);
   assert.match(html, /\/brand\/ucdb\.jpg/);
-  assert.match(html, /\/brand\/sesau\.png/);
+  assert.match(html, /\/brand\/sus\.png/);
   assert.match(html, /Teste a logica da estratificacao/);
   assert.match(html, /Abrir guia completo/);
   assert.doesNotMatch(html, /codex-preview|SkeletonPreview|react-loading-skeleton/);
@@ -73,7 +74,8 @@ test("keeps the hotsite responsive styles and real content wired", async () => {
   assert.match(css, /institution-strip/);
   assert.match(css, /footer-logos/);
   assert.match(css, /identity-section/);
-  assert.match(css, /shirt-showcase/);
+  assert.match(css, /single-identity/);
+  assert.doesNotMatch(css, /shirt-showcase/);
   assert.match(css, /@media \(max-width: 1060px\)/);
   assert.match(css, /@media \(max-width: 760px\)/);
   assert.match(css, /@media \(max-width: 430px\)/);
@@ -88,8 +90,7 @@ test("keeps institutional logo assets available", async () => {
   await Promise.all([
     access(new URL("../public/brand/pet-saude.png", import.meta.url)),
     access(new URL("../public/brand/ucdb.jpg", import.meta.url)),
-    access(new URL("../public/brand/sesau.png", import.meta.url)),
+    access(new URL("../public/brand/sus.png", import.meta.url)),
     access(new URL("../public/identity/e-pet-logo.png", import.meta.url)),
-    access(new URL("../public/identity/camiseta-grupo.png", import.meta.url)),
   ]);
 });

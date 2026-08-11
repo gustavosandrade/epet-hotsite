@@ -15,9 +15,9 @@ const brandLogos = [
     alt: "Logo da Universidade Catolica Dom Bosco",
   },
   {
-    name: "SESAU",
-    src: "/brand/sesau.png",
-    alt: "Logo da Secretaria Municipal de Saude",
+    name: "SUS",
+    src: "/brand/sus.png",
+    alt: "Logo do Sistema Unico de Saude",
   },
 ];
 
@@ -415,16 +415,16 @@ export default function Home() {
             <p>
               A identidade visual do grupo aproxima o prototipo da rotina das
               equipes e reforca a parceria entre PET-Saude Digital, UCDB e a
-              area da saude do municipio.
+              rede publica de saude.
             </p>
             <div className="identity-tags" aria-label="Elementos de identidade">
               <span>Logo e-PET</span>
-              <span>Camiseta do Grupo 8</span>
-              <span>UCDB e SESAU</span>
+              <span>PET-Saude Digital</span>
+              <span>UCDB e SUS</span>
             </div>
           </div>
 
-          <div className="identity-gallery">
+          <div className="identity-gallery single-identity">
             <figure className="identity-card logo-showcase">
               <Image
                 alt="Logo do e-PET com cruz verde, casa, sigla e-TET e maos"
@@ -434,16 +434,6 @@ export default function Home() {
                 width={720}
               />
               <figcaption>Logo aplicada ao projeto</figcaption>
-            </figure>
-            <figure className="identity-card shirt-showcase">
-              <Image
-                alt="Mockup da camiseta do Grupo 8 com logo e-PET, UCDB e SESAU"
-                height={720}
-                src="/identity/camiseta-grupo.png"
-                unoptimized
-                width={1120}
-              />
-              <figcaption>Camiseta com marcas institucionais</figcaption>
             </figure>
           </div>
         </div>
