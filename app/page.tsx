@@ -1,6 +1,25 @@
 "use client";
 
+import Image from "next/image";
 import { useMemo, useState } from "react";
+
+const brandLogos = [
+  {
+    name: "PET-Saude",
+    src: "/brand/pet-saude.png",
+    alt: "Logo do PET-Saude Informacao e Saude Digital",
+  },
+  {
+    name: "UCDB",
+    src: "/brand/ucdb.jpg",
+    alt: "Logo da Universidade Catolica Dom Bosco",
+  },
+  {
+    name: "SESAU",
+    src: "/brand/sesau.png",
+    alt: "Logo da Secretaria Municipal de Saude",
+  },
+];
 
 const appScreens = [
   {
@@ -352,6 +371,23 @@ export default function Home() {
             </a>
           </div>
 
+          <div className="institution-strip" aria-label="Instituicoes do projeto">
+            <span>Instituicoes parceiras</span>
+            <div className="logo-row">
+              {brandLogos.map((logo) => (
+                <div className="logo-card" key={logo.name}>
+                  <Image
+                    alt={logo.alt}
+                    height={72}
+                    src={logo.src}
+                    unoptimized
+                    width={160}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
           <div className="hero-metrics" aria-label="Resumo do e-TET">
             <span>Cadastro territorial</span>
             <span>Sentinelas padronizadas</span>
@@ -569,6 +605,18 @@ export default function Home() {
         >
           Abrir guia completo
         </a>
+        <div className="footer-logos" aria-label="Logos institucionais">
+          {brandLogos.map((logo) => (
+            <Image
+              alt={logo.alt}
+              height={54}
+              key={logo.name}
+              src={logo.src}
+              unoptimized
+              width={130}
+            />
+          ))}
+        </div>
       </section>
     </main>
   );
