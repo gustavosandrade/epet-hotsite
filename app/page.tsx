@@ -8,16 +8,25 @@ const brandLogos = [
     name: "PET-Saude",
     src: "/brand/pet-saude.png",
     alt: "Logo do PET-Saude Informacao e Saude Digital",
+    className: "pet-logo",
   },
   {
     name: "UCDB",
     src: "/brand/ucdb.jpg",
     alt: "Logo da Universidade Catolica Dom Bosco",
+    className: "ucdb-logo",
   },
   {
     name: "SUS",
     src: "/brand/sus.png",
     alt: "Logo do Sistema Unico de Saude",
+    className: "sus-logo",
+  },
+  {
+    name: "SESAU",
+    src: "/brand/sesau.png",
+    alt: "Logo da Secretaria Municipal de Saude de Campo Grande",
+    className: "sesau-logo",
   },
 ];
 
@@ -376,7 +385,7 @@ export default function Home() {
             <span>Instituicoes parceiras</span>
             <div className="logo-row">
               {brandLogos.map((logo) => (
-                <div className="logo-card" key={logo.name}>
+                <div className={`logo-card ${logo.className}`} key={logo.name}>
                   <Image
                     alt={logo.alt}
                     height={72}
@@ -641,6 +650,7 @@ export default function Home() {
         <div className="footer-logos" aria-label="Logos institucionais">
           {brandLogos.map((logo) => (
             <Image
+              className={logo.className}
               alt={logo.alt}
               height={54}
               key={logo.name}

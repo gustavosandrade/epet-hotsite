@@ -285,7 +285,7 @@ h3 {
   align-items: center;
   display: grid;
   gap: 12px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .logo-card {
@@ -312,9 +312,24 @@ h3 {
 
 .logo-card img {
   height: auto;
-  max-height: 78px;
+  max-height: 84px;
   object-fit: contain;
   width: 100%;
+}
+
+.logo-card.sus-logo {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.logo-card.sus-logo img {
+  max-height: 58px;
+  width: 96%;
+}
+
+.logo-card.ucdb-logo img,
+.logo-card.sesau-logo img {
+  max-height: 88px;
 }
 
 .hero-metrics span {
@@ -1433,6 +1448,16 @@ h3 {
   object-fit: contain;
   padding: 6px;
   width: 150px;
+}
+
+.footer-logos img.sus-logo {
+  width: 190px;
+}
+
+.footer-logos img.ucdb-logo,
+.footer-logos img.sesau-logo {
+  height: 68px;
+  width: 165px;
 }
 
 @media (prefers-reduced-motion: reduce) {
