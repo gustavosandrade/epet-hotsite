@@ -30,10 +30,10 @@ const brandLogos = [
   },
 ];
 
-const guidePages = Array.from({ length: 7 }, (_, index) => ({
+const guidePages = Array.from({ length: 21 }, (_, index) => ({
   page: index + 1,
-  src: `/guide/guide-page-${index + 1}.jpg`,
-  alt: `Pagina ${index + 1} do guia de bolso do e-TET`,
+  src: `/guide/slides/guide-slide-${String(index + 1).padStart(2, "0")}.jpg`,
+  alt: `Tela ${index + 1} do guia de bolso do e-TET`,
 }));
 
 const appScreens = [
@@ -651,11 +651,10 @@ export default function Home() {
         <div className="guide-layout">
           <div className="guide-copy">
             <p className="eyebrow">Guia de bolso</p>
-            <h2>Folheie o guia completo direto na pagina</h2>
+            <h2>Guia de bolso em formato horizontal</h2>
             <p>
-              O guia apresenta o caminho do e-TET desde o acesso do ACS ate o
-              cadastro do domicilio, familia, membros e sentinelas de risco.
-              Use as setas ou as miniaturas para acompanhar o passo a passo.
+              O material foi dividido em telas largas para facilitar a leitura
+              do passo a passo direto no hotsite.
             </p>
             <a
               className="button primary"
@@ -677,7 +676,7 @@ export default function Home() {
                 &lt;
               </button>
               <span>
-                Pagina {guidePage.page} de {guidePages.length}
+                Tela {guidePage.page} de {guidePages.length}
               </span>
               <button
                 aria-label="Proxima pagina do guia"
@@ -700,12 +699,12 @@ export default function Home() {
               <figure className="booklet-page">
                 <Image
                   alt={guidePage.alt}
-                  height={2500}
+                  height={900}
                   key={guidePage.src}
                   priority={activeGuidePage === 0}
                   src={guidePage.src}
                   unoptimized
-                  width={1000}
+                  width={1600}
                 />
               </figure>
               <button
@@ -722,7 +721,7 @@ export default function Home() {
               {guidePages.map((page, index) => (
                 <button
                   aria-current={activeGuidePage === index ? "page" : undefined}
-                  aria-label={`Abrir pagina ${page.page} do guia`}
+                  aria-label={`Abrir tela ${page.page} do guia`}
                   className={activeGuidePage === index ? "active" : ""}
                   key={page.src}
                   onClick={() => setActiveGuidePage(index)}

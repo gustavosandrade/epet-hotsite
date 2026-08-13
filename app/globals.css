@@ -1387,10 +1387,10 @@ h3 {
 }
 
 .guide-layout {
-  align-items: center;
+  align-items: stretch;
   display: grid;
-  gap: clamp(28px, 5vw, 64px);
-  grid-template-columns: minmax(260px, 0.78fr) minmax(340px, 1fr);
+  gap: clamp(22px, 4vw, 40px);
+  grid-template-columns: 1fr;
   width: 100%;
 }
 
@@ -1398,6 +1398,7 @@ h3 {
   display: grid;
   gap: 18px;
   justify-items: start;
+  max-width: 980px;
 }
 
 .guide h2 {
@@ -1421,10 +1422,11 @@ h3 {
   border-radius: 8px;
   box-shadow: 0 28px 80px rgba(0, 0, 0, 0.28);
   display: grid;
-  gap: 16px;
+  gap: 18px;
   justify-items: center;
   overflow: hidden;
   padding: clamp(14px, 2.8vw, 24px);
+  width: 100%;
 }
 
 .booklet-toolbar {
@@ -1470,21 +1472,14 @@ h3 {
   align-items: center;
   display: flex;
   justify-content: center;
-  min-height: min(80vh, 840px);
+  min-height: auto;
+  padding: 0 58px;
   position: relative;
   width: 100%;
 }
 
 .booklet-shell::before {
-  background: linear-gradient(180deg, transparent, rgba(25, 64, 49, 0.24), transparent);
-  content: "";
-  height: calc(100% - 64px);
-  left: 50%;
-  position: absolute;
-  top: 32px;
-  transform: translateX(-50%);
-  width: 10px;
-  z-index: 1;
+  display: none;
 }
 
 .booklet-page {
@@ -1492,12 +1487,12 @@ h3 {
   border-radius: 8px;
   box-shadow:
     0 26px 48px rgba(0, 0, 0, 0.33),
-    inset 16px 0 28px rgba(19, 64, 42, 0.1);
+    inset 0 0 0 1px rgba(19, 64, 42, 0.08);
   margin: 0;
   padding: clamp(8px, 1.8vw, 14px);
   position: relative;
-  transform: rotateY(-4deg);
-  transform-origin: left center;
+  transform: none;
+  width: min(100%, 1180px);
   z-index: 2;
 }
 
@@ -1505,10 +1500,10 @@ h3 {
   border-radius: 5px;
   display: block;
   height: auto;
-  max-height: min(76vh, 790px);
-  max-width: min(100%, 360px);
+  max-height: none;
+  max-width: 100%;
   object-fit: contain;
-  width: auto;
+  width: 100%;
 }
 
 .page-turn {
@@ -1521,11 +1516,11 @@ h3 {
 }
 
 .page-turn.previous {
-  left: 8px;
+  left: 0;
 }
 
 .page-turn.next {
-  right: 8px;
+  right: 0;
 }
 
 .guide-thumbs {
@@ -1719,13 +1714,7 @@ h3 {
   }
 
   .booklet-shell {
-    min-height: auto;
-    padding: 0 44px;
-  }
-
-  .booklet-page img {
-    max-height: 660px;
-    max-width: min(100%, 280px);
+    padding: 0 46px;
   }
 
   .footer-logos {
@@ -1776,12 +1765,6 @@ h3 {
 
   .booklet-page {
     padding: 7px;
-    transform: none;
-  }
-
-  .booklet-page img {
-    max-height: 620px;
-    max-width: min(100%, 244px);
   }
 
   .page-turn {
