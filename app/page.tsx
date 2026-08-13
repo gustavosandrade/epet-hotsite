@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useMemo, useState } from "react";
 
 const brandLogos = [
@@ -406,11 +405,10 @@ export default function Home() {
             <div className="logo-row">
               {brandLogos.map((logo) => (
                 <div className={`logo-card ${logo.className}`} key={logo.name}>
-                  <Image
+                  <img
                     alt={logo.alt}
                     height={72}
                     src={logo.src}
-                    unoptimized
                     width={160}
                   />
                 </div>
@@ -454,11 +452,10 @@ export default function Home() {
           </div>
 
           <div className="identity-logo">
-            <Image
+            <img
               alt="Logo do e-PET"
               height={720}
               src="/identity/e-pet-logo.png"
-              unoptimized
               width={720}
             />
           </div>
@@ -743,13 +740,12 @@ export default function Home() {
 
         <div className="footer-logos" aria-label="Logos institucionais">
           {brandLogos.map((logo) => (
-            <Image
+            <img
               className={logo.className}
               alt={logo.alt}
               height={54}
               key={logo.name}
               src={logo.src}
-              unoptimized
               width={130}
             />
           ))}

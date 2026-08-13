@@ -1,10 +1,9 @@
 services:
-  - type: web
+  - type: static
     name: epet
-    runtime: node
     plan: free
-    buildCommand: npm install && npm run build
-    startCommand: npm start
+    buildCommand: npm install && npm run build:static
+    staticPublishPath: dist-static
     autoDeployTrigger: commit
     envVars:
       - key: NODE_VERSION
