@@ -1,6 +1,6 @@
 services:
   - type: static
-    name: epet
+    name: e-tet
     plan: free
     buildCommand: npm install && npm run build:static
     staticPublishPath: dist-static

@@ -383,7 +383,7 @@ export default function Home() {
 
       <section className="hero" id="inicio">
         <div className="hero-copy">
-          <p className="eyebrow">PET Saude Digital - UCDB | Grupo 8</p>
+          <p className="eyebrow">e-TET | PET-Saude Digital - UCDB | Grupo 8</p>
           <h1>Risco familiar calculado no ritmo real da visita</h1>
           <p className="lead">
             O e-TET transforma o cadastro territorial em uma experiencia guiada
@@ -445,7 +445,7 @@ export default function Home() {
               rede publica de saude.
             </p>
             <div className="identity-tags" aria-label="Elementos de identidade">
-              <span>Logo e-PET</span>
+              <span>Logo e-TET</span>
               <span>PET-Saude Digital</span>
               <span>UCDB e SUS</span>
             </div>
@@ -453,7 +453,7 @@ export default function Home() {
 
           <div className="identity-logo">
             <img
-              alt="Logo do e-PET"
+              alt="Logo do e-TET"
               height={720}
               src="/identity/e-pet-logo.png"
               width={720}
