@@ -31,7 +31,7 @@ const brandLogos = [
 
 const guidePages = Array.from({ length: 7 }, (_, index) => ({
   page: index + 1,
-  src: `/guide/spreads/guide-spread-${String(index + 1).padStart(2, "0")}.jpg`,
+  src: `/guide/guide-spread-${String(index + 1).padStart(2, "0")}.jpg`,
   alt: `Lamina horizontal ${index + 1} do guia de bolso do e-TET`,
 }));
 
