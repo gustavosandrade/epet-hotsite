@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 const brandLogos = [
   {
@@ -122,6 +122,29 @@ const eTetFlow = [
   "Sentinelas preenchidas em tela propria",
   "Pontuacao e classificacao calculadas automaticamente",
   "Resultado disponivel para decisao da equipe",
+];
+
+const pitchPoints = [
+  {
+    title: "O problema fica visivel",
+    text: "O fluxo atual da coleta ainda depende de muitos passos, acessos e consolidacoes manuais.",
+  },
+  {
+    title: "A mudanca fica concreta",
+    text: "O e-TET aparece como uma forma de levar o calculo para dentro de uma jornada guiada, proxima da rotina do ACS.",
+  },
+  {
+    title: "A demonstracao ajuda a convencer",
+    text: "Mostrar o aplicativo em uso facilita entender por que automatizar pontuacao, classificacao e organizacao territorial pode reduzir retrabalho.",
+  },
+];
+
+const demoVideos = [
+  {
+    title: "Demonstracao do e-TET",
+    src: "/screens/video/canva-demonstracao.mp4",
+    text: "Demonstracao do aplicativo e-TET em uso.",
+  },
 ];
 
 const sentinelOptions = [
@@ -315,6 +338,50 @@ function PhoneMockup({
   );
 }
 
+function DemoPhoneVideo({ video }: { video: (typeof demoVideos)[number] }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [hasStarted, setHasStarted] = useState(false);
+
+  async function startVideo() {
+    setHasStarted(true);
+    await videoRef.current?.play().catch(() => setHasStarted(false));
+  }
+
+  return (
+    <article
+      aria-label={video.title}
+      className="video-card phone-video-card"
+      key={video.src}
+    >
+      <div className="phone-video-frame">
+        <video
+          aria-label={video.text}
+          controls
+          onPlay={() => setHasStarted(true)}
+          preload="metadata"
+          ref={videoRef}
+          src={video.src}
+        >
+          Seu navegador nao suporta reproducao de video.
+        </video>
+        {!hasStarted && (
+          <button
+            aria-label="Clique para iniciar a demonstracao do e-TET"
+            className="video-play-overlay"
+            onClick={startVideo}
+            type="button"
+          >
+            <span className="play-circle">
+              <span aria-hidden="true" />
+            </span>
+            <strong>Clique para iniciar</strong>
+          </button>
+        )}
+      </div>
+    </article>
+  );
+}
+
 export default function Home() {
   const [activeStep, setActiveStep] = useState(0);
   const [activeScreen, setActiveScreen] = useState(3);
@@ -374,6 +441,7 @@ export default function Home() {
         <nav>
           <a href="#identidade">Identidade</a>
           <a href="#mudanca">Antes/depois</a>
+          <a href="#demonstracao">Demo</a>
           <a href="#produto">Produto</a>
           <a href="#telas">Telas</a>
           <a href="#risco">Risco</a>
@@ -495,6 +563,42 @@ export default function Home() {
               ))}
             </ol>
           </article>
+        </div>
+      </section>
+
+      <section className="section presentation-section" id="demonstracao">
+        <div className="presentation-layout">
+          <div className="presentation-copy">
+            <p className="eyebrow">Demonstracao do e-TET</p>
+            <h2>O aplicativo em funcionamento, no formato da rotina do ACS</h2>
+            <p>
+              A demonstracao apresenta o preenchimento guiado no celular,
+              evidenciando como a ferramenta organiza dados do territorio, conduz a
+              classificacao familiar e reduz etapas manuais no processo de
+              estratificacao.
+            </p>
+
+            <div className="pitch-grid" aria-label="Pontos aproveitados da apresentacao">
+              {pitchPoints.map((item) => (
+                <article key={item.title}>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className="demo-panel" aria-label="Videos de demonstracao">
+            <div className="demo-panel-heading">
+              <span>Demonstracao do e-TET</span>
+              <strong>Aplicativo em uso</strong>
+            </div>
+            <div className="video-grid">
+              {demoVideos.map((video) => (
+                <DemoPhoneVideo key={video.src} video={video} />
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
