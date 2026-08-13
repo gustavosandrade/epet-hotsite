@@ -30,6 +30,12 @@ const brandLogos = [
   },
 ];
 
+const guidePages = Array.from({ length: 7 }, (_, index) => ({
+  page: index + 1,
+  src: `/guide/guide-page-${index + 1}.jpg`,
+  alt: `Pagina ${index + 1} do guia de bolso do e-TET`,
+}));
+
 const appScreens = [
   {
     label: "Acesso",
@@ -313,6 +319,7 @@ function PhoneMockup({
 export default function Home() {
   const [activeStep, setActiveStep] = useState(0);
   const [activeScreen, setActiveScreen] = useState(3);
+  const [activeGuidePage, setActiveGuidePage] = useState(0);
   const [selectedSentinels, setSelectedSentinels] = useState<string[]>([
     "sanitation",
     "elderly",
@@ -331,6 +338,7 @@ export default function Home() {
   const step = flowSteps[activeStep];
   const activeFlowScreen = appScreens[step.screenIndex];
   const featuredScreen = appScreens[activeScreen];
+  const guidePage = guidePages[activeGuidePage];
 
   function toggleSentinel(id: string) {
     setSelectedSentinels((current) =>
@@ -343,6 +351,18 @@ export default function Home() {
   function selectStep(index: number) {
     setActiveStep(index);
     setActiveScreen(flowSteps[index].screenIndex);
+  }
+
+  function previousGuidePage() {
+    setActiveGuidePage((current) =>
+      current === 0 ? guidePages.length - 1 : current - 1,
+    );
+  }
+
+  function nextGuidePage() {
+    setActiveGuidePage((current) =>
+      current === guidePages.length - 1 ? 0 : current + 1,
+    );
   }
 
   return (
@@ -628,22 +648,93 @@ export default function Home() {
       </section>
 
       <section className="section guide" id="guia">
-        <div>
-          <p className="eyebrow">Guia de bolso</p>
-          <h2>Material de apoio para apresentacao e treinamento</h2>
-          <p>
-            O guia apresenta o caminho do e-TET desde o acesso do ACS ate o
-            cadastro do domicilio, familia, membros e sentinelas de risco.
-          </p>
+        <div className="guide-layout">
+          <div className="guide-copy">
+            <p className="eyebrow">Guia de bolso</p>
+            <h2>Folheie o guia completo direto na pagina</h2>
+            <p>
+              O guia apresenta o caminho do e-TET desde o acesso do ACS ate o
+              cadastro do domicilio, familia, membros e sentinelas de risco.
+              Use as setas ou as miniaturas para acompanhar o passo a passo.
+            </p>
+            <a
+              className="button primary"
+              href="/guide/guia-e-tet.pdf"
+              rel="noreferrer"
+              target="_blank"
+            >
+              Abrir PDF completo
+            </a>
+          </div>
+
+          <div className="booklet" aria-label="Guia de bolso navegavel">
+            <div className="booklet-toolbar">
+              <button
+                aria-label="Pagina anterior do guia"
+                onClick={previousGuidePage}
+                type="button"
+              >
+                &lt;
+              </button>
+              <span>
+                Pagina {guidePage.page} de {guidePages.length}
+              </span>
+              <button
+                aria-label="Proxima pagina do guia"
+                onClick={nextGuidePage}
+                type="button"
+              >
+                &gt;
+              </button>
+            </div>
+
+            <div className="booklet-shell">
+              <button
+                aria-label="Pagina anterior do guia"
+                className="page-turn previous"
+                onClick={previousGuidePage}
+                type="button"
+              >
+                &lt;
+              </button>
+              <figure className="booklet-page">
+                <Image
+                  alt={guidePage.alt}
+                  height={2500}
+                  key={guidePage.src}
+                  priority={activeGuidePage === 0}
+                  src={guidePage.src}
+                  unoptimized
+                  width={1000}
+                />
+              </figure>
+              <button
+                aria-label="Proxima pagina do guia"
+                className="page-turn next"
+                onClick={nextGuidePage}
+                type="button"
+              >
+                &gt;
+              </button>
+            </div>
+
+            <div className="guide-thumbs" aria-label="Selecionar pagina do guia">
+              {guidePages.map((page, index) => (
+                <button
+                  aria-current={activeGuidePage === index ? "page" : undefined}
+                  aria-label={`Abrir pagina ${page.page} do guia`}
+                  className={activeGuidePage === index ? "active" : ""}
+                  key={page.src}
+                  onClick={() => setActiveGuidePage(index)}
+                  type="button"
+                >
+                  {page.page}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
-        <a
-          className="button primary"
-          href="https://drive.google.com/file/d/1iLxRSNPdShdBMfVxWJJ9IqNts67JZKxd/view"
-          rel="noreferrer"
-          target="_blank"
-        >
-          Abrir guia completo
-        </a>
+
         <div className="footer-logos" aria-label="Logos institucionais">
           {brandLogos.map((logo) => (
             <Image
