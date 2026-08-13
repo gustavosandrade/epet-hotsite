@@ -33,8 +33,8 @@ test("server-renders the e-TET hotsite", async () => {
   assert.match(html, /<title>e-TET \| Estratificacao de risco familiar<\/title>/i);
   assert.match(html, /Risco familiar calculado no ritmo real da visita/);
   assert.match(html, /O e-TET tambem virou marca de campo/);
-  assert.match(html, /\/identity\/e-pet-logo\.png/);
-  assert.match(html, /\/brand\/sus\.png/);
+  assert.match(html, /\/identity\/e-tet-logo\.png/);
+  assert.match(html, /\/brand\/sus-stack\.svg/);
   assert.doesNotMatch(html, /\/identity\/camiseta-grupo\.png/);
   assert.match(html, /Menos dispersao, mais decisao no territorio/);
   assert.match(html, /Do login ao risco familiar em uma jornada unica/);
@@ -42,9 +42,9 @@ test("server-renders the e-TET hotsite", async () => {
   assert.match(html, /Instituicoes parceiras/);
   assert.match(html, /\/brand\/pet-saude\.png/);
   assert.match(html, /\/brand\/ucdb\.jpg/);
-  assert.match(html, /\/brand\/sus\.png/);
+  assert.match(html, /\/brand\/sus-stack\.svg/);
   assert.match(html, /Teste a logica da estratificacao/);
-  assert.match(html, /Abrir guia completo/);
+  assert.match(html, /Abrir PDF horizontal/);
   assert.doesNotMatch(html, /codex-preview|SkeletonPreview|react-loading-skeleton/);
 });
 
@@ -65,7 +65,7 @@ test("keeps the hotsite responsive styles and real content wired", async () => {
   assert.match(page, /type="checkbox"/);
   assert.match(page, /const brandLogos = \[/);
   assert.match(page, /footer-logos/);
-  assert.match(page, /identity-gallery/);
+  assert.match(page, /identity-logo/);
   assert.match(page, /telas recriadas com base no/);
   assert.match(layout, /metadataBase: new URL\("https:\/\/e-tet-hotsite\.gustavosandrade\.chatgpt\.site"\)/);
   assert.match(css, /--pet-orange/);
@@ -74,7 +74,7 @@ test("keeps the hotsite responsive styles and real content wired", async () => {
   assert.match(css, /institution-strip/);
   assert.match(css, /footer-logos/);
   assert.match(css, /identity-section/);
-  assert.match(css, /single-identity/);
+  assert.match(css, /identity-logo/);
   assert.doesNotMatch(css, /shirt-showcase/);
   assert.match(css, /@media \(max-width: 1060px\)/);
   assert.match(css, /@media \(max-width: 760px\)/);
@@ -91,6 +91,6 @@ test("keeps institutional logo assets available", async () => {
     access(new URL("../public/brand/pet-saude.png", import.meta.url)),
     access(new URL("../public/brand/ucdb.jpg", import.meta.url)),
     access(new URL("../public/brand/sus.png", import.meta.url)),
-    access(new URL("../public/identity/e-pet-logo.png", import.meta.url)),
+    access(new URL("../public/identity/e-tet-logo.png", import.meta.url)),
   ]);
 });

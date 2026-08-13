@@ -455,7 +455,7 @@ export default function Home() {
             <img
               alt="Logo do e-TET"
               height={720}
-              src="/identity/e-pet-logo.png"
+              src="/identity/e-tet-logo.png"
               width={720}
             />
           </div>
