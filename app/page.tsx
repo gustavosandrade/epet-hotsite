@@ -30,10 +30,10 @@ const brandLogos = [
   },
 ];
 
-const guidePages = Array.from({ length: 21 }, (_, index) => ({
+const guidePages = Array.from({ length: 7 }, (_, index) => ({
   page: index + 1,
-  src: `/guide/slides/guide-slide-${String(index + 1).padStart(2, "0")}.jpg`,
-  alt: `Tela ${index + 1} do guia de bolso do e-TET`,
+  src: `/guide/spreads/guide-spread-${String(index + 1).padStart(2, "0")}.jpg`,
+  alt: `Lamina horizontal ${index + 1} do guia de bolso do e-TET`,
 }));
 
 const appScreens = [
@@ -653,16 +653,17 @@ export default function Home() {
             <p className="eyebrow">Guia de bolso</p>
             <h2>Guia de bolso em formato horizontal</h2>
             <p>
-              O material foi dividido em telas largas para facilitar a leitura
-              do passo a passo direto no hotsite.
+              Cada pagina original foi reorganizada em uma lamina horizontal,
+              mantendo o conteudo completo e facilitando a leitura direto no
+              hotsite.
             </p>
             <a
               className="button primary"
-              href="/guide/guia-e-tet.pdf"
+              href="/guide/guia-e-tet-horizontal.pdf"
               rel="noreferrer"
               target="_blank"
             >
-              Abrir PDF completo
+              Abrir PDF horizontal
             </a>
           </div>
 
@@ -676,7 +677,7 @@ export default function Home() {
                 &lt;
               </button>
               <span>
-                Tela {guidePage.page} de {guidePages.length}
+                Lamina {guidePage.page} de {guidePages.length}
               </span>
               <button
                 aria-label="Proxima pagina do guia"
@@ -697,14 +698,14 @@ export default function Home() {
                 &lt;
               </button>
               <figure className="booklet-page">
-                <Image
+                <img
                   alt={guidePage.alt}
-                  height={900}
-                  key={guidePage.src}
-                  priority={activeGuidePage === 0}
+                  decoding="sync"
+                  draggable="false"
+                  height="900"
+                  loading="eager"
                   src={guidePage.src}
-                  unoptimized
-                  width={1600}
+                  width="1600"
                 />
               </figure>
               <button
@@ -721,7 +722,7 @@ export default function Home() {
               {guidePages.map((page, index) => (
                 <button
                   aria-current={activeGuidePage === index ? "page" : undefined}
-                  aria-label={`Abrir tela ${page.page} do guia`}
+                  aria-label={`Abrir lamina ${page.page} do guia`}
                   className={activeGuidePage === index ? "active" : ""}
                   key={page.src}
                   onClick={() => setActiveGuidePage(index)}
@@ -729,6 +730,12 @@ export default function Home() {
                 >
                   {page.page}
                 </button>
+              ))}
+            </div>
+
+            <div className="guide-preload" aria-hidden="true">
+              {guidePages.map((page) => (
+                <img alt="" key={page.src} src={page.src} />
               ))}
             </div>
           </div>

@@ -1418,6 +1418,7 @@ h3 {
   background:
     linear-gradient(150deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.04)),
     rgba(4, 20, 17, 0.56);
+  animation: none;
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 8px;
   box-shadow: 0 28px 80px rgba(0, 0, 0, 0.28);
@@ -1426,6 +1427,7 @@ h3 {
   justify-items: center;
   overflow: hidden;
   padding: clamp(14px, 2.8vw, 24px);
+  transition: none;
   width: 100%;
 }
 
@@ -1483,6 +1485,7 @@ h3 {
 }
 
 .booklet-page {
+  animation: none;
   background: #f6fbef;
   border-radius: 8px;
   box-shadow:
@@ -1492,18 +1495,35 @@ h3 {
   padding: clamp(8px, 1.8vw, 14px);
   position: relative;
   transform: none;
+  transition: none;
   width: min(100%, 1180px);
   z-index: 2;
 }
 
 .booklet-page img {
+  animation: none;
   border-radius: 5px;
   display: block;
   height: auto;
   max-height: none;
   max-width: 100%;
   object-fit: contain;
+  transition: none;
   width: 100%;
+}
+
+.guide-preload {
+  height: 1px;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  width: 1px;
+}
+
+.guide-preload img {
+  height: 1px;
+  width: 1px;
 }
 
 .page-turn {
