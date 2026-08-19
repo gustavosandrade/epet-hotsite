@@ -1370,15 +1370,13 @@ h3 {
 }
 
 .step-rail,
-.screen-picker,
 .sentinel-grid,
 .assurance-grid {
   display: grid;
   gap: 10px;
 }
 
-.step,
-.picker {
+.step {
   background: rgba(255, 255, 255, 0.84);
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -1402,14 +1400,12 @@ h3 {
   font-size: 0.8rem;
 }
 
-.step:hover,
-.picker:hover {
+.step:hover {
   color: var(--teal-deep);
   transform: translateY(-1px);
 }
 
-.step.active,
-.picker.active {
+.step.active {
   background: linear-gradient(135deg, var(--teal), var(--blue));
   border-color: transparent;
   box-shadow: 0 14px 28px rgba(7, 128, 101, 0.2);
@@ -1443,68 +1439,6 @@ h3 {
 
 .detail-phone {
   justify-self: center;
-}
-
-.screens {
-  background:
-    radial-gradient(circle at 12% 8%, rgba(239, 75, 42, 0.16), transparent 26%),
-    radial-gradient(circle at 88% 16%, rgba(80, 164, 216, 0.18), transparent 28%),
-    #10211d;
-  color: white;
-}
-
-.screens h2,
-.screens h3 {
-  color: white;
-}
-
-.screens .eyebrow {
-  color: #9ff2d0;
-}
-
-.screens .section-heading p {
-  color: #c7d8d3;
-}
-
-.screen-gallery {
-  align-items: center;
-  display: grid;
-  gap: clamp(18px, 4vw, 44px);
-  grid-template-columns: minmax(230px, 330px) minmax(0, 1fr);
-}
-
-.screen-picker {
-  align-content: start;
-}
-
-.picker {
-  display: grid;
-  gap: 4px;
-  padding: 14px;
-}
-
-.picker span {
-  color: var(--amber);
-  font-size: 0.74rem;
-  text-transform: uppercase;
-}
-
-.picker strong {
-  font-size: 1rem;
-}
-
-.picker.active span,
-.picker.active strong {
-  color: white;
-}
-
-.showcase-phone {
-  margin: 0 auto;
-  width: min(100%, 350px);
-}
-
-.showcase-phone figcaption {
-  color: #d8e6e1;
 }
 
 .risk-section {
@@ -1868,7 +1802,6 @@ h3 {
   .identity-layout,
   .presentation-layout,
   .product-layout,
-  .screen-gallery,
   .risk-layout,
   .guide-layout {
     grid-template-columns: 1fr;
@@ -1894,8 +1827,7 @@ h3 {
     align-items: start;
   }
 
-  .step-rail,
-  .screen-picker {
+  .step-rail {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
@@ -1978,8 +1910,7 @@ h3 {
     max-width: min(100%, 440px);
   }
 
-  .step-rail,
-  .screen-picker {
+  .step-rail {
     grid-template-columns: 1fr;
   }
 

@@ -13,26 +13,26 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "e-TET | Estratificacao de risco familiar",
+  title: "e-TET | Estratificação de risco familiar",
   description:
-    "Hotsite interativo sobre o funcionamento do e-TET, prototipo de apoio a estratificacao de risco familiar na Atencao Primaria a Saude.",
+    "Hotsite interativo sobre o funcionamento do e-TET, protótipo de apoio à estratificação de risco familiar na Atenção Primária à Saúde.",
   metadataBase: new URL("https://e-tet-hotsite.gustavosandrade.chatgpt.site"),
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
   },
   openGraph: {
-    title: "e-TET | Estratificacao de risco familiar",
+    title: "e-TET | Estratificação de risco familiar",
     description:
-      "Entenda como o e-TET apoia o cadastro, o calculo das sentinelas e a priorizacao das visitas na APS.",
+      "Entenda como o e-TET apoia o cadastro, o cálculo das sentinelas e a priorização das visitas na APS.",
     images: ["/og.png"],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "e-TET | Estratificacao de risco familiar",
+    title: "e-TET | Estratificação de risco familiar",
     description:
-      "Entenda como o e-TET apoia o cadastro, o calculo das sentinelas e a priorizacao das visitas na APS.",
+      "Entenda como o e-TET apoia o cadastro, o cálculo das sentinelas e a priorização das visitas na APS.",
     images: ["/og.png"],
   },
 };

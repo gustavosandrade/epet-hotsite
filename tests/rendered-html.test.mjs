@@ -30,21 +30,22 @@ test("server-renders the e-TET hotsite", async () => {
 
   const html = await response.text();
   assert.match(html, /<html lang="pt-BR">/i);
-  assert.match(html, /<title>e-TET \| Estratificacao de risco familiar<\/title>/i);
+  assert.match(html, /<title>e-TET \| Estratificação de risco familiar<\/title>/i);
   assert.match(html, /Risco familiar calculado no ritmo real da visita/);
-  assert.match(html, /O e-TET tambem virou marca de campo/);
+  assert.match(html, /Identidade visual para o trabalho de campo/);
   assert.match(html, /\/identity\/e-tet-logo\.png/);
   assert.match(html, /\/brand\/sus-stack\.svg/);
   assert.doesNotMatch(html, /\/identity\/camiseta-grupo\.png/);
-  assert.match(html, /Menos dispersao, mais decisao no territorio/);
-  assert.match(html, /Do login ao risco familiar em uma jornada unica/);
-  assert.match(html, /Interface limpa, parecida com aplicativo de verdade/);
-  assert.match(html, /Instituicoes parceiras/);
+  assert.match(html, /Menos dispersão, mais decisão no território/);
+  assert.match(html, /Do login ao risco familiar em uma jornada única/);
+  assert.doesNotMatch(html, /Interface organizada para apresentar o protótipo/);
+  assert.match(html, /Instituições parceiras/);
   assert.match(html, /\/brand\/pet-saude\.png/);
   assert.match(html, /\/brand\/ucdb\.jpg/);
   assert.match(html, /\/brand\/sus-stack\.svg/);
-  assert.match(html, /Teste a logica da estratificacao/);
+  assert.match(html, /Simule a lógica da estratificação/);
   assert.match(html, /Abrir PDF horizontal/);
+  assert.doesNotMatch(html, /Telas do produto/);
   assert.doesNotMatch(html, /codex-preview|SkeletonPreview|react-loading-skeleton/);
 });
 
@@ -67,6 +68,8 @@ test("keeps the hotsite responsive styles and real content wired", async () => {
   assert.match(page, /footer-logos/);
   assert.match(page, /identity-logo/);
   assert.match(page, /telas recriadas com base no/);
+  assert.doesNotMatch(page, /id="telas"/);
+  assert.doesNotMatch(page, /screen-gallery/);
   assert.match(layout, /metadataBase: new URL\("https:\/\/e-tet-hotsite\.gustavosandrade\.chatgpt\.site"\)/);
   assert.match(css, /--pet-orange/);
   assert.match(css, /--ucdb-blue/);
@@ -81,7 +84,6 @@ test("keeps the hotsite responsive styles and real content wired", async () => {
   assert.match(css, /@media \(max-width: 430px\)/);
   assert.match(css, /phone-glass/);
   assert.match(css, /phone-notch/);
-  assert.match(css, /screen-gallery/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
   assert.doesNotMatch(page, /_sites-preview|codex-preview/);
 });

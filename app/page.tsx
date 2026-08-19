@@ -4,27 +4,27 @@ import { useMemo, useRef, useState } from "react";
 
 const brandLogos = [
   {
-    name: "PET-Saude",
+    name: "PET-Saúde",
     src: "/brand/pet-saude.png",
-    alt: "Logo do PET-Saude Informacao e Saude Digital",
+    alt: "Logo do PET-Saúde Informação e Saúde Digital",
     className: "pet-logo",
   },
   {
     name: "UCDB",
     src: "/brand/ucdb.jpg",
-    alt: "Logo da Universidade Catolica Dom Bosco",
+    alt: "Logo da Universidade Católica Dom Bosco",
     className: "ucdb-logo",
   },
   {
     name: "SUS",
     src: "/brand/sus-stack.svg",
-    alt: "Logo do Sistema Unico de Saude",
+    alt: "Logo do Sistema Único de Saúde",
     className: "sus-logo",
   },
   {
     name: "SESAU",
     src: "/brand/sesau.png",
-    alt: "Logo da Secretaria Municipal de Saude de Campo Grande",
+    alt: "Logo da Secretaria Municipal de Saúde de Campo Grande",
     className: "sesau-logo",
   },
 ];
@@ -32,7 +32,7 @@ const brandLogos = [
 const guidePages = Array.from({ length: 7 }, (_, index) => ({
   page: index + 1,
   src: `/guide/guide-spread-${String(index + 1).padStart(2, "0")}.jpg`,
-  alt: `Lamina horizontal ${index + 1} do guia de bolso do e-TET`,
+  alt: `Lâmina horizontal ${index + 1} do guia de bolso do e-TET`,
 }));
 
 const appScreens = [
@@ -40,23 +40,23 @@ const appScreens = [
     label: "Acesso",
     title: "Login do ACS",
     kind: "login",
-    text: "Entrada por CPF e senha, seguindo a identidade do e-ACS Territorio Eletronico.",
+    text: "Entrada por CPF e senha, seguindo a identidade do e-ACS Território Eletrônico.",
   },
   {
-    label: "Territorio",
-    title: "Domicilios",
+    label: "Território",
+    title: "Domicílios",
     kind: "households",
-    text: "Lista territorial com busca, domicilios, moradores e status de sincronizacao.",
+    text: "Lista territorial com busca, domicílios, moradores e status de sincronização.",
   },
   {
     label: "Cadastro",
-    title: "Novo domicilio",
+    title: "Novo domicílio",
     kind: "householdForm",
-    text: "Formulario em etapas para endereco, moradia e infraestrutura.",
+    text: "Formulário em etapas para endereço, moradia e infraestrutura.",
   },
   {
     label: "Sentinelas",
-    title: "Estratificacao",
+    title: "Estratificação",
     kind: "riskForm",
     text: "Registro guiado das sentinelas de risco familiar.",
   },
@@ -64,7 +64,7 @@ const appScreens = [
     label: "Risco",
     title: "Resultado",
     kind: "riskResult",
-    text: "Pontuacao consolidada para apoiar a priorizacao da equipe.",
+    text: "Pontuação consolidada para apoiar a priorização da equipe.",
   },
 ];
 
@@ -73,77 +73,77 @@ const flowSteps = [
     label: "Entrar",
     title: "Acesso identificado",
     description:
-      "O ACS acessa o e-ACS por CPF e senha para iniciar a rotina de trabalho no territorio.",
+      "O ACS acessa o e-ACS por CPF e senha para iniciar a rotina de trabalho no território.",
     screenIndex: 0,
   },
   {
     label: "Localizar",
-    title: "Domicilio e familia",
+    title: "Domicílio e família",
     description:
-      "A equipe localiza o domicilio, verifica familias residentes e confere se ha registros pendentes.",
+      "A equipe localiza o domicílio, verifica famílias residentes e confere se há registros pendentes.",
     screenIndex: 1,
   },
   {
     label: "Cadastrar",
     title: "Dados estruturados",
     description:
-      "Endereco, moradia, infraestrutura, responsavel familiar e membros sao preenchidos em etapas.",
+      "Endereço, moradia, infraestrutura, responsável familiar e membros são preenchidos em etapas.",
     screenIndex: 2,
   },
   {
     label: "Estratificar",
     title: "Sentinelas de risco",
     description:
-      "O profissional informa os fatores de risco da familia em um formulario guiado.",
+      "O profissional informa os fatores de risco da família em um formulário guiado.",
     screenIndex: 3,
   },
   {
     label: "Priorizar",
-    title: "Pontuacao e decisao",
+    title: "Pontuação e decisão",
     description:
-      "O resultado orienta a priorizacao das visitas e a discussao pela equipe de APS.",
+      "O resultado orienta a priorização das visitas e a discussão pela equipe de APS.",
     screenIndex: 4,
   },
 ];
 
 const currentFlow = [
   "Acesso a pastas por distrito e USF",
-  "Abertura de formulario especifico da unidade",
-  "Selecao manual de equipe e microarea",
-  "Preenchimento de endereco e sentinelas",
-  "Consolidacao posterior em planilha",
+  "Abertura de formulário específico da unidade",
+  "Seleção manual de equipe e microárea",
+  "Preenchimento de endereço e sentinelas",
+  "Consolidação posterior em planilha",
   "Leitura dos indicadores para planejar a prioridade",
 ];
 
 const eTetFlow = [
-  "Territorio organizado dentro do aplicativo",
-  "Domicilio e familia conectados ao mesmo fluxo",
-  "Equipe e microarea vinculadas ao registro",
-  "Sentinelas preenchidas em tela propria",
-  "Pontuacao e classificacao calculadas automaticamente",
-  "Resultado disponivel para decisao da equipe",
+  "Território organizado dentro do aplicativo",
+  "Domicílio e família conectados ao mesmo fluxo",
+  "Equipe e microárea vinculadas ao registro",
+  "Sentinelas preenchidas em tela própria",
+  "Pontuação e classificação calculadas automaticamente",
+  "Resultado disponível para decisão da equipe",
 ];
 
 const pitchPoints = [
   {
-    title: "O problema fica visivel",
-    text: "O fluxo atual da coleta ainda depende de muitos passos, acessos e consolidacoes manuais.",
+    title: "O problema fica visível",
+    text: "O fluxo atual da coleta ainda depende de muitos passos, acessos e consolidações manuais.",
   },
   {
-    title: "A mudanca fica concreta",
-    text: "O e-TET aparece como uma forma de levar o calculo para dentro de uma jornada guiada, proxima da rotina do ACS.",
+    title: "A mudança fica concreta",
+    text: "O e-TET apresenta uma forma de levar o cálculo para dentro de uma jornada guiada, próxima da rotina do ACS.",
   },
   {
-    title: "A demonstracao ajuda a convencer",
-    text: "Mostrar o aplicativo em uso facilita entender por que automatizar pontuacao, classificacao e organizacao territorial pode reduzir retrabalho.",
+    title: "A demonstração torna a proposta compreensível",
+    text: "Mostrar o aplicativo em uso facilita entender por que automatizar pontuação, classificação e organização territorial pode reduzir retrabalho.",
   },
 ];
 
 const demoVideos = [
   {
-    title: "Demonstracao do e-TET",
+    title: "Demonstração do e-TET",
     src: "/screens/video/canva-demonstracao.mp4",
-    text: "Demonstracao do aplicativo e-TET em uso.",
+    text: "Demonstração do aplicativo e-TET em uso.",
   },
 ];
 
@@ -163,8 +163,8 @@ const sentinelOptions = [
 ];
 
 function classifyRisk(score: number) {
-  if (score >= 9) return { level: "R3", label: "risco maximo", tone: "high" };
-  if (score >= 7) return { level: "R2", label: "risco medio", tone: "medium" };
+  if (score >= 9) return { level: "R3", label: "risco máximo", tone: "high" };
+  if (score >= 7) return { level: "R2", label: "risco médio", tone: "medium" };
   if (score >= 5) return { level: "R1", label: "risco menor", tone: "low" };
   return { level: "R0", label: "sem risco familiar registrado", tone: "base" };
 }
@@ -176,7 +176,7 @@ function PhoneScreen({ kind }: { kind: string }) {
         <div className="login-cover">
           <div className="app-icon">e</div>
           <strong>e-ACS</strong>
-          <span>Territorio Eletronico</span>
+          <span>Território Eletrônico</span>
         </div>
         <div className="form-sheet">
           <div className="visual-label">
@@ -199,11 +199,11 @@ function PhoneScreen({ kind }: { kind: string }) {
       <div className="app-view">
         <div className="app-bar">
           <span className="hamburger" />
-          <strong>Domicilios</strong>
+          <strong>Domicílios</strong>
         </div>
         <div className="app-content">
-          <p className="muted-line">3 domicilios cadastrados</p>
-          <div className="search-pill">Buscar por endereco ou bairro...</div>
+          <p className="muted-line">3 domicílios cadastrados</p>
+          <div className="search-pill">Buscar por endereço ou bairro...</div>
           {[
             ["Rua da Esperanca, 100", "Jardim Primavera", "5 moradores"],
             ["Rua da Beira Rio, S/N", "Periferia Norte", "6 moradores"],
@@ -224,8 +224,8 @@ function PhoneScreen({ kind }: { kind: string }) {
           ))}
         </div>
         <div className="bottom-nav">
-          <span className="active">Domicilios</span>
-          <span>Familias</span>
+          <span className="active">Domicílios</span>
+          <span>Famílias</span>
           <span>Pessoas</span>
         </div>
       </div>
@@ -237,18 +237,18 @@ function PhoneScreen({ kind }: { kind: string }) {
       <div className="app-view">
         <div className="app-bar">
           <span className="back-mark" />
-          <strong>Novo Domicilio</strong>
+          <strong>Novo domicílio</strong>
         </div>
         <div className="progress-line">
           <span />
         </div>
         <div className="app-content form-content">
-          <h4>Endereco</h4>
-          {["Tipo de imovel", "Microarea", "Nome do logradouro", "CEP", "Bairro"].map(
+          <h4>Endereço</h4>
+          {["Tipo de imóvel", "Microárea", "Nome do logradouro", "CEP", "Bairro"].map(
             (field) => (
               <label className="field-card" key={field}>
                 <span>{field}</span>
-                <strong>{field === "Microarea" ? "05" : "Preenchido"}</strong>
+                <strong>{field === "Microárea" ? "05" : "Preenchido"}</strong>
               </label>
             ),
           )}
@@ -266,15 +266,15 @@ function PhoneScreen({ kind }: { kind: string }) {
       <div className="app-view">
         <div className="app-bar">
           <span className="shield-mark" />
-          <strong>Estratificacao</strong>
+          <strong>Estratificação</strong>
         </div>
         <div className="app-content form-content">
           <div className="info-box">
-            <strong>Automacao e-TET</strong>
-            <span>Calculo automatico da estratificacao de risco familiar.</span>
+            <strong>Automação e-TET</strong>
+            <span>Cálculo automático da estratificação de risco familiar.</span>
           </div>
-          <h4>Sentinelas da familia</h4>
-          {["Acamados", "Def. fisica", "Def. mental", "Desnutricao"].map(
+          <h4>Sentinelas da família</h4>
+          {["Acamados", "Def. física", "Def. mental", "Desnutrição"].map(
             (field, index) => (
               <label className="field-card risk-field" key={field}>
                 <span>{field}</span>
@@ -299,9 +299,9 @@ function PhoneScreen({ kind }: { kind: string }) {
       </div>
       <div className="app-content result-content">
         <div className="score-card">
-          <span>Pontuacao familiar</span>
+          <span>Pontuação familiar</span>
           <strong>7</strong>
-          <em>R2 - risco medio</em>
+          <em>R2 - risco médio</em>
         </div>
         <div className="risk-scale">
           <span />
@@ -311,7 +311,7 @@ function PhoneScreen({ kind }: { kind: string }) {
         </div>
         <article className="priority-card">
           <strong>Priorizar acompanhamento</strong>
-          <p>Resultado disponivel para discussao da equipe e planejamento das visitas.</p>
+          <p>Resultado disponível para discussão da equipe e planejamento das visitas.</p>
         </article>
       </div>
     </div>
@@ -366,7 +366,7 @@ function DemoPhoneVideo({ video }: { video: (typeof demoVideos)[number] }) {
         </video>
         {!hasStarted && (
           <button
-            aria-label="Clique para iniciar a demonstracao do e-TET"
+            aria-label="Clique para iniciar a demonstração do e-TET"
             className="video-play-overlay"
             onClick={startVideo}
             type="button"
@@ -384,7 +384,6 @@ function DemoPhoneVideo({ video }: { video: (typeof demoVideos)[number] }) {
 
 export default function Home() {
   const [activeStep, setActiveStep] = useState(0);
-  const [activeScreen, setActiveScreen] = useState(3);
   const [activeGuidePage, setActiveGuidePage] = useState(0);
   const [selectedSentinels, setSelectedSentinels] = useState<string[]>([
     "sanitation",
@@ -403,7 +402,6 @@ export default function Home() {
   const risk = classifyRisk(score);
   const step = flowSteps[activeStep];
   const activeFlowScreen = appScreens[step.screenIndex];
-  const featuredScreen = appScreens[activeScreen];
   const guidePage = guidePages[activeGuidePage];
 
   function toggleSentinel(id: string) {
@@ -416,7 +414,6 @@ export default function Home() {
 
   function selectStep(index: number) {
     setActiveStep(index);
-    setActiveScreen(flowSteps[index].screenIndex);
   }
 
   function previousGuidePage() {
@@ -443,7 +440,6 @@ export default function Home() {
           <a href="#mudanca">Antes/depois</a>
           <a href="#demonstracao">Demo</a>
           <a href="#produto">Produto</a>
-          <a href="#telas">Telas</a>
           <a href="#risco">Risco</a>
           <a href="#guia">Guia</a>
         </nav>
@@ -451,25 +447,25 @@ export default function Home() {
 
       <section className="hero" id="inicio">
         <div className="hero-copy">
-          <p className="eyebrow">e-TET | PET-Saude Digital - UCDB | Grupo 8</p>
+          <p className="eyebrow">e-TET | PET-Saúde Digital - UCDB | Grupo 8</p>
           <h1>Risco familiar calculado no ritmo real da visita</h1>
           <p className="lead">
-            O e-TET transforma o cadastro territorial em uma experiencia guiada
-            para registrar sentinelas, somar a Escala de Risco Familiar de
-            Coelho-Savassi e apoiar a priorizacao das familias na APS.
+            O e-TET propõe uma experiência guiada para registrar sentinelas,
+            calcular a Escala de Risco Familiar de Coelho-Savassi e apoiar a
+            priorização das famílias na APS.
           </p>
 
           <div className="hero-actions">
             <a className="button primary" href="#produto">
               Explorar o funcionamento
             </a>
-            <a className="button secondary" href="#telas">
-              Ver telas do aplicativo
+            <a className="button secondary" href="#demonstracao">
+              Ver demonstração
             </a>
           </div>
 
-          <div className="institution-strip" aria-label="Instituicoes do projeto">
-            <span>Instituicoes parceiras</span>
+          <div className="institution-strip" aria-label="Instituições do projeto">
+            <span>Instituições parceiras</span>
             <div className="logo-row">
               {brandLogos.map((logo) => (
                 <div className={`logo-card ${logo.className}`} key={logo.name}>
@@ -487,7 +483,7 @@ export default function Home() {
           <div className="hero-metrics" aria-label="Resumo do e-TET">
             <span>Cadastro territorial</span>
             <span>Sentinelas padronizadas</span>
-            <span>Classificacao R0 a R3</span>
+            <span>Classificação R0 a R3</span>
           </div>
         </div>
 
@@ -495,7 +491,7 @@ export default function Home() {
           <PhoneMockup screen={appScreens[1]} className="hero-phone back-phone" />
           <PhoneMockup screen={appScreens[3]} className="hero-phone front-phone" />
           <div className={`risk-chip ${risk.tone}`}>
-            <span>Simulacao ativa</span>
+            <span>Simulação ativa</span>
             <strong>{risk.level}</strong>
             <small>{score} pontos</small>
           </div>
@@ -506,15 +502,15 @@ export default function Home() {
         <div className="identity-layout">
           <div className="identity-copy">
             <p className="eyebrow">Identidade do grupo</p>
-            <h2>O e-TET tambem virou marca de campo</h2>
+            <h2>Identidade visual para o trabalho de campo</h2>
             <p>
-              A identidade visual do grupo aproxima o prototipo da rotina das
-              equipes e reforca a parceria entre PET-Saude Digital, UCDB e a
-              rede publica de saude.
+              A identidade visual do grupo aproxima o protótipo da rotina das
+              equipes e reforça a parceria entre PET-Saúde Digital, UCDB e a
+              rede pública de saúde.
             </p>
             <div className="identity-tags" aria-label="Elementos de identidade">
               <span>Logo e-TET</span>
-              <span>PET-Saude Digital</span>
+              <span>PET-Saúde Digital</span>
               <span>UCDB e SUS</span>
             </div>
           </div>
@@ -532,21 +528,21 @@ export default function Home() {
 
       <section className="section comparison" id="mudanca">
         <div className="section-heading">
-          <p className="eyebrow">Mudanca principal</p>
-          <h2>Menos dispersao, mais decisao no territorio</h2>
+          <p className="eyebrow">Mudança principal</p>
+          <h2>Menos dispersão, mais decisão no território</h2>
           <p>
-            No processo atual, a estratificacao passa por arquivos separados,
-            formularios por unidade, selecao manual de equipe e microarea,
+            No processo atual, a estratificação passa por arquivos separados,
+            formulários por unidade, seleção manual de equipe e microárea,
             preenchimento das sentinelas e leitura posterior em planilha. O
-            e-TET concentra esse caminho em uma jornada unica, mantendo a
-            avaliacao profissional no centro.
+            e-TET concentra esse caminho em uma jornada única, mantendo a
+            avaliação profissional no centro.
           </p>
         </div>
 
         <div className="route-compare">
           <article className="route-column current">
             <span className="compare-badge">Hoje</span>
-            <h3>Fluxo atual da estratificacao</h3>
+            <h3>Fluxo atual da estratificação</h3>
             <ol>
               {currentFlow.map((item) => (
                 <li key={item}>{item}</li>
@@ -556,7 +552,7 @@ export default function Home() {
 
           <article className="route-column proposed">
             <span className="compare-badge">Com e-TET</span>
-            <h3>Fluxo proposto pelo prototipo</h3>
+            <h3>Fluxo proposto pelo protótipo</h3>
             <ol>
               {eTetFlow.map((item) => (
                 <li key={item}>{item}</li>
@@ -569,16 +565,16 @@ export default function Home() {
       <section className="section presentation-section" id="demonstracao">
         <div className="presentation-layout">
           <div className="presentation-copy">
-            <p className="eyebrow">Demonstracao do e-TET</p>
+            <p className="eyebrow">Demonstração do e-TET</p>
             <h2>O aplicativo em funcionamento, no formato da rotina do ACS</h2>
             <p>
-              A demonstracao apresenta o preenchimento guiado no celular,
-              evidenciando como a ferramenta organiza dados do territorio, conduz a
-              classificacao familiar e reduz etapas manuais no processo de
-              estratificacao.
+              A demonstração apresenta o preenchimento guiado no celular,
+              evidenciando como a ferramenta organiza dados do território,
+              conduz a classificação familiar e reduz etapas manuais no
+              processo de estratificação.
             </p>
 
-            <div className="pitch-grid" aria-label="Pontos aproveitados da apresentacao">
+            <div className="pitch-grid" aria-label="Pontos aproveitados da apresentação">
               {pitchPoints.map((item) => (
                 <article key={item.title}>
                   <h3>{item.title}</h3>
@@ -588,9 +584,9 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="demo-panel" aria-label="Videos de demonstracao">
+          <div className="demo-panel" aria-label="Vídeos de demonstração">
             <div className="demo-panel-heading">
-              <span>Demonstracao do e-TET</span>
+              <span>Demonstração do e-TET</span>
               <strong>Aplicativo em uso</strong>
             </div>
             <div className="video-grid">
@@ -605,7 +601,7 @@ export default function Home() {
       <section className="section product" id="produto">
         <div className="section-heading compact">
           <p className="eyebrow">Funcionamento</p>
-          <h2>Do login ao risco familiar em uma jornada unica</h2>
+          <h2>Do login ao risco familiar em uma jornada única</h2>
           <p>
             Clique nas etapas para alternar entre telas recriadas com base no
             front-end do e-TET e no guia de bolso.
@@ -635,8 +631,8 @@ export default function Home() {
             <h3>{step.title}</h3>
             <p>{step.description}</p>
             <strong>
-              Tela relacionada: {activeFlowScreen.title}. A proposta e reduzir
-              retrabalho sem afirmar integracao automatica com sistemas oficiais.
+              Tela relacionada: {activeFlowScreen.title}. A proposta é reduzir
+              retrabalho sem afirmar integração automática com sistemas oficiais.
             </strong>
           </article>
 
@@ -644,49 +640,14 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section screens" id="telas">
-        <div className="section-heading">
-          <p className="eyebrow">Telas do produto</p>
-          <h2>Interface limpa, parecida com aplicativo de verdade</h2>
-          <p>
-            Em vez de usar recortes crus do manual, esta area apresenta telas
-            recriadas a partir do app e-TET para explicar o produto com mais
-            clareza em reunioes e oficinas.
-          </p>
-        </div>
-
-        <div className="screen-gallery">
-          <div className="screen-picker" role="tablist" aria-label="Telas do aplicativo">
-            {appScreens.map((screen, index) => (
-              <button
-                aria-controls="featured-screen"
-                aria-selected={activeScreen === index}
-                className={activeScreen === index ? "picker active" : "picker"}
-                key={screen.label}
-                onClick={() => setActiveScreen(index)}
-                role="tab"
-                type="button"
-              >
-                <span>{screen.label}</span>
-                <strong>{screen.title}</strong>
-              </button>
-            ))}
-          </div>
-
-          <div id="featured-screen" role="tabpanel">
-            <PhoneMockup screen={featuredScreen} className="showcase-phone" />
-          </div>
-        </div>
-      </section>
-
       <section className="section risk-section" id="risco">
         <div className="section-heading">
           <p className="eyebrow">Interativo</p>
-          <h2>Teste a logica da estratificacao</h2>
+          <h2>Simule a lógica da estratificação</h2>
           <p>
-            Esta simulacao reproduz a soma das sentinelas como recurso de
-            demonstracao. A classificacao final deve ser revisada pela equipe e
-            registrada conforme autorizacao institucional.
+            Esta simulação reproduz a soma das sentinelas como recurso de
+            demonstração. A classificação final deve ser revisada pela equipe e
+            registrada conforme autorização institucional.
           </p>
         </div>
 
@@ -706,13 +667,13 @@ export default function Home() {
           </div>
 
           <aside className={`risk-result ${risk.tone}`}>
-            <span>Pontuacao simulada</span>
+            <span>Pontuação simulada</span>
             <strong>{score}</strong>
             <h3>{risk.level}</h3>
             <p>{risk.label}</p>
             <small>
-              A ferramenta apoia a priorizacao; a decisao final continua sendo
-              clinica, social e territorial.
+              A ferramenta apoia a priorização; a decisão final continua sendo
+              clínica, social e territorial.
             </small>
           </aside>
         </div>
@@ -720,29 +681,29 @@ export default function Home() {
 
       <section className="section assurance">
         <div className="section-heading compact">
-          <p className="eyebrow">Uso responsavel</p>
-          <h2>Prototipo claro, limites explicitos</h2>
+          <p className="eyebrow">Uso responsável</p>
+          <h2>Protótipo claro, limites explícitos</h2>
         </div>
         <div className="assurance-grid">
           <article>
             <h3>O que o app oferece</h3>
             <p>
-              Cadastro organizado, formulario de sentinelas, calculo de escore
-              e classificacao para apoiar a agenda da equipe.
+              Cadastro organizado, formulário de sentinelas, cálculo de escore
+              e classificação para apoiar a agenda da equipe.
             </p>
           </article>
           <article>
             <h3>O que ainda depende</h3>
             <p>
-              Integracao oficial, escrita no PEC e sincronizacao institucional
-              exigem autorizacao, homologacao e governanca de dados.
+              Integração oficial, escrita no PEC e sincronização institucional
+              exigem autorização, homologação e governança de dados.
             </p>
           </article>
           <article>
             <h3>Como apresentar</h3>
             <p>
-              Use o hotsite para explicar a mudanca no fluxo, mostrar telas e
-              abrir o guia de bolso durante as discussoes com o grupo.
+              O hotsite pode ser usado para explicar a mudança no fluxo, mostrar
+              telas e abrir o guia de bolso durante as discussões com o grupo.
             </p>
           </article>
         </div>
@@ -754,8 +715,8 @@ export default function Home() {
             <p className="eyebrow">Guia de bolso</p>
             <h2>Guia de bolso em formato horizontal</h2>
             <p>
-              Cada pagina original foi reorganizada em uma lamina horizontal,
-              mantendo o conteudo completo e facilitando a leitura direto no
+              Cada página original foi reorganizada em uma lâmina horizontal,
+              mantendo o conteúdo completo e facilitando a leitura direto no
               hotsite.
             </p>
             <a
@@ -768,20 +729,20 @@ export default function Home() {
             </a>
           </div>
 
-          <div className="booklet" aria-label="Guia de bolso navegavel">
+          <div className="booklet" aria-label="Guia de bolso navegável">
             <div className="booklet-toolbar">
               <button
-                aria-label="Pagina anterior do guia"
+                aria-label="Página anterior do guia"
                 onClick={previousGuidePage}
                 type="button"
               >
                 &lt;
               </button>
               <span>
-                Lamina {guidePage.page} de {guidePages.length}
+                Lâmina {guidePage.page} de {guidePages.length}
               </span>
               <button
-                aria-label="Proxima pagina do guia"
+                aria-label="Próxima página do guia"
                 onClick={nextGuidePage}
                 type="button"
               >
@@ -791,7 +752,7 @@ export default function Home() {
 
             <div className="booklet-shell">
               <button
-                aria-label="Pagina anterior do guia"
+                aria-label="Página anterior do guia"
                 className="page-turn previous"
                 onClick={previousGuidePage}
                 type="button"
@@ -810,7 +771,7 @@ export default function Home() {
                 />
               </figure>
               <button
-                aria-label="Proxima pagina do guia"
+                aria-label="Próxima página do guia"
                 className="page-turn next"
                 onClick={nextGuidePage}
                 type="button"
@@ -819,11 +780,11 @@ export default function Home() {
               </button>
             </div>
 
-            <div className="guide-thumbs" aria-label="Selecionar pagina do guia">
+            <div className="guide-thumbs" aria-label="Selecionar página do guia">
               {guidePages.map((page, index) => (
                 <button
                   aria-current={activeGuidePage === index ? "page" : undefined}
-                  aria-label={`Abrir lamina ${page.page} do guia`}
+                  aria-label={`Abrir lâmina ${page.page} do guia`}
                   className={activeGuidePage === index ? "active" : ""}
                   key={page.src}
                   onClick={() => setActiveGuidePage(index)}
